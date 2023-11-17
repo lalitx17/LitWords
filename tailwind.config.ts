@@ -18,11 +18,11 @@ module.exports = {
         secondaryBackground: "#262d36"
       },
       fontFamily: {
-        primary: ["'Lato'", '"sans-serif"'],
-        complementry: ["'Montserrat'", 'sans-serif'],
-        white: ["'Playfair Display'", 'serif'],
-        secondary: ["'Poppins'", "sans-serif"],
-        inter: ["'Inter'", "sans-serif"]
+        primary: ["'Lato'", 'sans-serif'],
+        complementary: ["'Roboto'", 'sans-serif'],
+        white: ["'Josefin Sans'", 'sans-serif'],
+        secondary: ['Poppins', "sans-serif"],
+        inter: ['Inter', "sans-serif"]
       }
     },
   },

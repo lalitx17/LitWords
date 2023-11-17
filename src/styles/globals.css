@@ -1,9 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Poppins:wght@200&family=Roboto:wght@300;400;500&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
-
-html{
-    background-color: rgb(222,227,255);
+html {
+  background-color: rgb(222, 227, 255);
 }
+
+
+
+
+
