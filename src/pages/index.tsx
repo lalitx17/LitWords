@@ -20,21 +20,44 @@ export default function Home() {
               background-repeat: no-repeat;
               background-position: center;
               background-size: cover;
-              height: 100vh;
+              height: 140vh;
           }
+          .bg2{
+            background-image:url(${solitude.src});
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            height: 120vh;
+        }
             `}
         </style>
       </Head>
 
       <main>
-        <div className="mx-auto my-12 w-[93%] rounded-lg bg-secondaryBackground">
+        <div className="mx-auto my-12 w-[93%] rounded-lg bg-secondaryBackground ">
           <div className="h-10 rounded-t-lg bg-gradient-to-r from-purpleG to-blueG">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit.
           </div>
-          <Navbar />
-          <HomeScreen />
-          <div className="py-10">
-              <Blogcard />
+          <div className="bg2 md:bg1">
+            <div className="backdrop-blur h-full">
+              <Navbar />
+              <HomeScreen />
+              <svg viewBox="0 89.467 500 88.832" className="absolute bottom-0 mb-[-5px]">
+              <path
+                style={{
+                  fill: "#262d36",
+                  stroke: "#262d36",
+                  strokeWidth: "0px",
+                }}
+                d="M -6.661 97.557 C 47.498 68.577 239.101 140.782 280.776 139.435 C 383.076 145.463 536.336 70.461 521.892 89.943 C 521.892 103.979 521.258 183.561 521.258 178.141 L -3.489 180.044 C -6.629 180.661 -6.093 101.519 -6.661 97.557 Z"
+                transform="matrix(0.9999999999999999, 0, 0, 0.9999999999999999, -7.105427357601002e-15, 7.105427357601002e-15)"
+              />
+            </svg>
+            </div>
+            
+          </div>
+          <div>
+            <Blogcard />
           </div>
         </div>
       </main>
@@ -126,14 +149,14 @@ function HomeScreen() {
 
 function Blogcard() {
   return (
-    <div className="max-w-sm rounded-lg border border-gray-200 bg-white shadow dark:border-gray-700 dark:bg-gray-800 mx-4">
+    <div className="m-4 max-w-sm rounded-lg border border-gray-200 bg-white shadow dark:border-gray-700 dark:bg-gray-800">
       <a href="#">
         <Image
           src={solitude.src}
           width={600}
           height={400}
           alt="solitude"
-          className="rounded-t-lg p-4" 
+          className="rounded-t-lg p-4"
         />
       </a>
       <div className="p-5">
@@ -160,9 +183,9 @@ function Blogcard() {
           >
             <path
               stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
               d="M1 5h12m0 0L9 1m4 4L9 9"
             />
           </svg>
