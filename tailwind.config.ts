@@ -21,8 +21,8 @@ module.exports = {
         primary: ["'Lato'", 'sans-serif'],
         complementary: ["'Roboto'", 'sans-serif'],
         white: ["'Josefin Sans'", 'sans-serif'],
-        secondary: ['Poppins', "sans-serif"],
-        inter: ['Inter', "sans-serif"]
+        secondary: ["'Poppins'", "sans-serif"],
+        montser: ["'Montserrat'", "sans-serif"]
       }
     },
   },

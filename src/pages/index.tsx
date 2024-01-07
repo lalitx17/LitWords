@@ -72,7 +72,7 @@ export default function Home() {
 
 function BlogHouse() {
   return (
-    <div className="flex flex-row content-evenly flex-wrap">
+    <div className="flex flex-row flex-wrap content-evenly">
       <Blogcard />
       <Blogcard />
     </div>
@@ -97,19 +97,18 @@ function Blogcard() {
             Noteworthy technology acquisitions 2021
           </h5>
         </a>
-        <div className="flex flex-row my-2">
-        <Image
+        <div className="my-2 flex flex-row">
+          <Image
             src={quirkyLalit.src}
             width={50}
             height={50}
             alt="quirkyLalit"
             className="rounded-full"
           />
-          <div className="font-complemetary font-[500] text-white mx-2 leading-1 my-auto">
-            <p className="align-bottom">
-            By Lalit Yadav
-            </p>
-            
+          <div className="font-montser mx-2 my-auto  text-white text-[14px]">
+            <span><i>By</i></span>
+            <span className="font-[600] mx-2"><i>Lalit Yadav</i></span>
+            <span className="mx-4"><i>June 8, 2024</i></span>
           </div>
         </div>
 
