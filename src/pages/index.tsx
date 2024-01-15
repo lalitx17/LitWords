@@ -82,24 +82,17 @@ function BlogHouse() {
     return cards;
   };
 
-  const rowCount = 2:
+  const rowCount = 2;
 
   
   return (
     <div className="flex flex-row flex-wrap content-evenly">
-      {[...Array(rowCount)].map((_, index) => (
-  <div key={index} className="flex basis-4/12 flex-col">
-    {renderCards(2)}
-  </div>
-))}
+      {Array.from({ length: rowCount }, (_, index) => (
+    <div key={index} className="flex basis-4/12 flex-col">
+      {renderCards(2)}
+    </div>
+  ))}
       
-{/*       <div className="flex basis-4/12 flex-col">
-        {renderCards(2)}
-      </div>
-      <div className="flex basis-4/12 flex-col">
-        <Blogcard />
-        <Blogcard />
-      </div> */}
       <div className="flex basis-4/12 flex-col">
         <Banner />
         <Banner />

@@ -20,11 +20,14 @@ const { mutate, isLoading: isPosting } = api.posts.create.useMutation({
    
 });
 
-  const [formData, setFormData] = useState<FormData>({
-    title: '',
-    content: '',
-    tags: [],
-  });
+  
+const initialStateFormData = {
+title: '',
+content: '',
+tags: []
+};
+
+  const [formData, setFormData] = useState<FormData>(initialStateFormData);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -47,7 +50,9 @@ const { mutate, isLoading: isPosting } = api.posts.create.useMutation({
     if (Object.keys(formData).length !== 0){
       mutate({title:formData.title, content: formData.content, tags: formData.tags})
     }
-       
+    setFormData(() => ({
+      ...initialStateFormData,
+    }))
    };
 
   return (
