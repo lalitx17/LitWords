@@ -11,6 +11,13 @@ export const postRouter = createTRPCRouter({
       };
     }),
 
+  getAll: publicProcedure.query(async ({ctx}) => {
+    const blogs = await ctx.db.article.findMany({
+      orderBy:[{createdAt: 'desc'}]
+    });
+    return blogs;
+  }),
+
   create:publicProcedure.input(z.object({
     title: z.string(), content: z.string(), tags: z.array(z.string())
   })).mutation(async ({ctx, input}) => {

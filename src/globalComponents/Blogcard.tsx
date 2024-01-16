@@ -5,9 +5,13 @@ import solitude from "../../public/image/solitude.jpg";
 
 import quirkyLalit from "../../public/image/QuirkyLality2.jpg";
 
+import type { RouterOutputs } from "~/utils/api";
+
+type ArticlesByMe = RouterOutputs["posts"]["getAll"][number];
 
 
-export default function Blogcard() {
+export default function Blogcard(props: ArticlesByMe) {
+   const {title, tags, content} = props;
     return (
       <div className="m-8 max-w-md rounded-lg border border-gray-200 bg-white shadow dark:border-gray-700 dark:bg-gray-800">
         <a href="#">
@@ -21,8 +25,8 @@ export default function Blogcard() {
         </a>
         <div className="p-5">
           <a href="#">
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-              Noteworthy technology acquisitions 2021
+            <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+              {title}
             </h5>
           </a>
           <div className="my-2 flex flex-row">
@@ -47,8 +51,7 @@ export default function Blogcard() {
           </div>
   
           <p className="my-4 font-normal text-gray-700 dark:text-gray-400">
-            Here are the biggest enterprise technology acquisitions of 2021 so
-            far, in reverse chronolo.....
+            {content.slice(0, 97) + " ..."}
           </p>
           <a
             href="#"

@@ -12,6 +12,8 @@ import Blogcard from "~/globalComponents/Blogcard";
 
 import spring from "../../public/image/spring.jpg";
 
+import { api } from "~/utils/api";
+
 export default function Home() {
   return (
     <>
@@ -73,26 +75,36 @@ export default function Home() {
 }
 
 function BlogHouse() {
-  const renderCards = (count: number) => {
-    const cards = [];
-    for (let i = 0; i < count; i++) {
-      if (i % 2 === 0){}
-      cards.push(<Blogcard key={i} />);
+  const { data } = api.posts.getAll.useQuery();
+
+  let blogNumber = 0;
+  const cards: JSX.Element[] = [];
+
+  if (data?.length) {
+    for (const article of data) {
+      cards.push(<Blogcard {...article} key={article.id} />);
     }
-    return cards;
-  };
+    blogNumber = data.length;
+  }
 
-  const rowCount = 2;
+  const rowCount = Math.floor(blogNumber/2); 
 
-  
   return (
     <div className="flex flex-row flex-wrap content-evenly">
       {Array.from({ length: rowCount }, (_, index) => (
-    <div key={index} className="flex basis-4/12 flex-col">
-      {renderCards(2)}
-    </div>
-  ))}
-      
+        <div key={index} className="flex basis-4/12 flex-col">
+          {cards.slice(index*2, index*2+2)}
+        </div>
+      ))}
+
+      { 
+        (blogNumber % 2 !== 0) && (
+          <div className="flex basis-4/12 flex-col">
+          {cards.slice(-1)}
+        </div>
+        )
+      }
+
       <div className="flex basis-4/12 flex-col">
         <Banner />
         <Banner />
@@ -100,8 +112,6 @@ function BlogHouse() {
     </div>
   );
 }
-
-
 
 function Banner() {
   return (
@@ -117,7 +127,10 @@ function Banner() {
         <div className="absolute inset-[60px] backdrop-blur-sm"></div>
 
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform text-center text-white">
-          <p className="mt-2 font-primary text-lg">“To go wrong in one&#39;s own way is better than to go right in someone else&#39;s.”</p>
+          <p className="mt-2 font-primary text-lg">
+            “To go wrong in one&#39;s own way is better than to go right in
+            someone else&#39;s.”
+          </p>
         </div>
       </div>
     </div>
