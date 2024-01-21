@@ -1,18 +1,13 @@
 import Head from "next/head";
-
 import Navbar from "~/globalComponents/Navbar";
-
 import HomeScreen from "~/globalComponents/Homescreen";
-
 import Image from "next/image";
-
 import solitude from "../../public/image/solitude.jpg";
-
 import Blogcard from "~/globalComponents/Blogcard";
-
 import spring from "../../public/image/spring.jpg";
-
 import { api } from "~/utils/api";
+
+
 
 export default function Home() {
   return (
@@ -91,19 +86,21 @@ function BlogHouse() {
 
   return (
     <div className="flex flex-row flex-wrap content-evenly">
+    <div className="flex basis-8/12 flex-row flex-wrap">
       {Array.from({ length: rowCount }, (_, index) => (
-        <div key={index} className="flex basis-4/12 flex-col">
+        <div key={index} className="flex basis-6/12 flex-col">
           {cards.slice(index*2, index*2+2)}
         </div>
       ))}
 
       { 
         (blogNumber % 2 !== 0) && (
-          <div className="flex basis-4/12 flex-col">
+          <div className="flex basis-6/12 flex-col">
           {cards.slice(-1)}
         </div>
         )
       }
+      </div>
 
       <div className="flex basis-4/12 flex-col">
         <Banner />

@@ -51,7 +51,7 @@ export default function Blogcard(props: ArticlesByMe) {
           </div>
   
           <p className="my-4 font-normal text-gray-700 dark:text-gray-400">
-            {content.slice(0, 97) + " ..."}
+            {content.slice(0, 97) + "..."}
           </p>
           <a
             href="#"
