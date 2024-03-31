@@ -1,4 +1,5 @@
-import React, { useState, FormEvent, ChangeEvent } from "react";
+import type { FormEvent } from "react";
+import { useState } from "react";
 import Image from "next/image";
 
 interface CommentEvent extends FormEvent {
@@ -80,6 +81,7 @@ const ArticlePage = () => {
             {comment}
           </p>
         ))}
+        
         <form
           onSubmit={(e: CommentEvent): void => {
             e.preventDefault();

@@ -13,7 +13,6 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>LitWords</title>
         <style>
           {`
             .bg1{
