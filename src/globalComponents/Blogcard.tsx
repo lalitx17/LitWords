@@ -7,11 +7,13 @@ import quirkyLalit from "../../public/image/QuirkyLality2.jpg";
 
 import type { RouterOutputs } from "~/utils/api";
 
+import Link from "next/link";
+
 type ArticlesByMe = RouterOutputs["posts"]["getAll"][number];
 
 
 export default function Blogcard(props: ArticlesByMe) {
-   const {title, tags, content} = props;
+   const {title, content, createdAt, id} = props;
     return (
       <div className="m-8 max-w-md rounded-lg border border-gray-200 bg-white shadow dark:border-gray-700 dark:bg-gray-800">
         <a href="#">
@@ -45,7 +47,7 @@ export default function Blogcard(props: ArticlesByMe) {
                 <i>Lalit Yadav</i>
               </span>
               <span className="mx-4">
-                <i>June 8, 2024</i>
+                <i>{String(createdAt).slice(0,15)}</i>
               </span>
             </div>
           </div>
@@ -53,8 +55,8 @@ export default function Blogcard(props: ArticlesByMe) {
           <p className="my-4 font-normal text-gray-700 dark:text-gray-400">
             {content.slice(0, 97) + "..."}
           </p>
-          <a
-            href="#"
+          <Link
+            href={`/articles/${id}`}
             className="inline-flex items-center rounded-lg bg-blue-700 px-3 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
             Read more
@@ -73,7 +75,7 @@ export default function Blogcard(props: ArticlesByMe) {
                 d="M1 5h12m0 0L9 1m4 4L9 9"
               />
             </svg>
-          </a>
+          </Link>
         </div>
       </div>
     );
