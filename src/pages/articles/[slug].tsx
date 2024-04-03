@@ -2,6 +2,7 @@ import { useState } from "react";
 import Image from "next/image";
 import type { FormEvent } from "react";
 import { useRouter } from "next/router";
+import { api } from "~/utils/api";
 
 
 interface Comment {
@@ -11,24 +12,25 @@ interface Comment {
 }
 
 const ArticlePage:React.FC = () => {
-  const [likes, setLikes] = useState<number>(0);
-  const [comments, setComments] = useState<Comment[]>([]);
+  const [activeLikes, setActiveLikes] = useState<number>(0);
+  const [activeComments, setActiveComments] = useState<Comment[]>([]);
   const router = useRouter();
 
   const slug = router.query.slug as string;
-  console.log(slug);                       //TODO:use the slug to fetch the article from the database
+
+  const {data} = api.posts.getbyId.useQuery({id:slug});
 
   const handleLike = (): void => {
-    setLikes(likes + 1);
+    setActiveLikes(activeLikes + 1);
   };
 
   const handleComment = (name: string, email: string, comment: string): void => {
-    setComments([...comments, { name, email, comment }]);
+    setActiveComments([...activeComments, { name, email, comment }]);
   };
 
   return (
     <div className="p-4 md:p-8 md:mx-[10em]">
-      <h1 className="mb-4 text-2xl font-bold md:text-4xl">Article Title</h1>
+      <h1 className="mb-4 text-2xl font-bold md:text-4xl">{data?.title}</h1>
       <div className="mb-4">
         <Image
           src="/image/solitude.jpg"
@@ -39,33 +41,17 @@ const ArticlePage:React.FC = () => {
         />
       </div>
       <p className="mb-4">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod
-        justo ut nulla ultricies, nec porta purus lacinia. Donec at nunc
-        scelerisque, luctus sapien sit amet, ultricies eros. Nullam auctor
-        sollicitudin tortor, a lobortis nunc. Praesent nec ante et nulla
-        scelerisque fermentum. Nullam auctor sollicitudin tortor, a lobortis
-        nunc. Praesent nec ante et nulla scelerisque fermentum. Nullam auctor 
-        sollicitudin tortor, a lobortis nunc. Praesent nec ante et nulla
-        scelerisque fermentum.
-        <br /> 
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod
-        justo ut nulla ultricies, nec porta purus lacinia. Donec at nunc
-        scelerisque, luctus sapien sit amet, ultricies eros. Nullam auctor
-        sollicitudin tortor, a lobortis nunc. Praesent nec ante et nulla
-        scelerisque fermentum. Nullam auctor sollicitudin tortor, a lobortis
-        nunc. Praesent nec ante et nulla scelerisque fermentum. Nullam auctor 
-        sollicitudin tortor, a lobortis nunc. Praesent nec ante et nulla
-        scelerisque fermentum.
+        {data?.content}
       </p>
       <button
         className="rounded bg-blue-500 px-4 py-2 text-white"
         onClick={handleLike}
       >
-        Like {likes}
+        Like {data?.likes}
       </button>
       <div className="mt-4">
         <h2 className="mb-2 text-xl font-bold md:text-2xl">Comments</h2>
-        {comments.map((comment, index) => (
+        {activeComments.map((comment, index) => (
           <div key={index} className="mb-2 border-b pb-2">
             <p><strong>{comment.name} ({comment.email}): </strong>{comment.comment}</p>
           </div>
