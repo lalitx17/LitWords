@@ -5,6 +5,7 @@ import Image from "next/image";
 import solitude from "../../public/image/solitude.jpg";
 import Blogcard from "~/globalComponents/Blogcard";
 import spring from "../../public/image/spring.jpg";
+import Footer from "~/globalComponents/Footer";
 import { api } from "~/utils/api";
 
 
@@ -62,8 +63,11 @@ export default function Home() {
             </div>
           </div>
           <BlogHouse />
+          <Footer />
         </div>
+        
       </main>
+      
     </>
   );
 }
