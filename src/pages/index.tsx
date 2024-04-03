@@ -1,14 +1,9 @@
 import Head from "next/head";
 import Navbar from "~/globalComponents/Navbar";
 import HomeScreen from "~/globalComponents/Homescreen";
-import Image from "next/image";
 import solitude from "../../public/image/solitude.jpg";
-import Blogcard from "~/globalComponents/Blogcard";
-import spring from "../../public/image/spring.jpg";
 import Footer from "~/globalComponents/Footer";
-import { api } from "~/utils/api";
-
-
+import BlogHouse from "~/globalComponents/BlogHouse";
 
 export default function Home() {
   return (
@@ -72,67 +67,6 @@ export default function Home() {
   );
 }
 
-function BlogHouse() {
-  const { data } = api.posts.getAll.useQuery();
 
-  let blogNumber = 0;
-  const cards: JSX.Element[] = [];
 
-  if (data?.length) {
-    for (const article of data) {
-      cards.push(<Blogcard {...article} key={article.id} />);
-    }
-    blogNumber = data.length;
-  }
 
-  const rowCount = Math.floor(blogNumber/2); 
-
-  return (
-    <div className="flex flex-row flex-wrap content-evenly">
-    <div className="flex basis-8/12 flex-row flex-wrap">
-      {Array.from({ length: rowCount }, (_, index) => (
-        <div key={index} className="flex basis-6/12 flex-col">
-          {cards.slice(index*2, index*2+2)}
-        </div>
-      ))}
-
-      { 
-        (blogNumber % 2 !== 0) && (
-          <div className="flex basis-6/12 flex-col">
-          {cards.slice(-1)}
-        </div>
-        )
-      }
-      </div>
-
-      <div className="flex basis-4/12 flex-col">
-        <Banner />
-        <Banner />
-      </div>
-    </div>
-  );
-}
-
-function Banner() {
-  return (
-    <div className="m-8 max-w-md rounded-lg border border-gray-200 bg-white shadow dark:border-gray-700 dark:bg-gray-800">
-      <div className="relative">
-        <Image
-          src={spring.src}
-          width={600}
-          height={400}
-          alt="solitude"
-          className="rounded-[40px] p-8"
-        />
-        <div className="absolute inset-[60px] backdrop-blur-sm"></div>
-
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform text-center text-white">
-          <p className="mt-2 font-primary text-lg">
-            “To go wrong in one&#39;s own way is better than to go right in
-            someone else&#39;s.”
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}

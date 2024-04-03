@@ -6,7 +6,7 @@ export default function Footer() {
     <footer className="bg-secondaryBackground py-10 rounded-b-lg">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
         <div>
-          <h2 className="text-2xl font-bold text-blue-600">LitWords</h2>
+          <h2 className="text-2xl font-bold text-white">LitWords</h2>
           <p className="mt-2 text-white">
             Lorem Ipsum is simply dummy text of the printing and typesetting industry.
           </p>
