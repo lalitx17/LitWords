@@ -3,6 +3,7 @@ import Image from "next/image";
 import type { FormEvent } from "react";
 import { useRouter } from "next/router";
 import { api } from "~/utils/api";
+import Layout from "../layout";
 
 
 interface Comment {
@@ -29,6 +30,7 @@ const ArticlePage:React.FC = () => {
   };
 
   return (
+    <Layout>
     <div className="p-4 md:p-8 md:mx-[10em]">
       <h1 className="mb-4 text-2xl font-bold md:text-4xl">{data?.title}</h1>
       <div className="mb-4">
@@ -99,6 +101,7 @@ const ArticlePage:React.FC = () => {
         </div>
       </div>
     </div>
+    </Layout>
   );
 };
 

@@ -1,43 +1,47 @@
 import Link from "next/link";
 
+interface FooterProps {
+  classNameColor?: string;
+}
 
-export default function Footer() {
+
+const Footer:React.FC<FooterProps> = ({ classNameColor }) => {
   return (
-    <footer className="bg-secondaryBackground py-10 rounded-b-lg">
+    <footer className={`py-10 rounded-b-lg ${classNameColor}`}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
         <div>
-          <h2 className="text-2xl font-bold text-white">LitWords</h2>
-          <p className="mt-2 text-white">
+          <h2 className="text-2xl font-bold">LitWords</h2>
+          <p className="mt-2 ">
             Lorem Ipsum is simply dummy text of the printing and typesetting industry.
           </p>
           <div className="flex items-center mt-4 space-x-3">
             <InstagramIcon className="text-blue-500 h-6 w-6" />
-            <span className="text-white">Instagram</span>
-            <XIcon className="text-white h-4 w-4" />
+            <span className="">Instagram</span>
+            <XIcon className=" h-4 w-4" />
           </div>
         </div>
         <div>
-          <h3 className="text-lg font-semibold text-white">Links</h3>
+          <h3 className="text-lg font-semibold">Links</h3>
           <nav className="mt-4">
             <ul className="space-y-2">
               <li>
                 <Link href="#" passHref>
-                  <p className="text-white hover:text-gray-800">About Me</p>
+                  <p className="w-2/5 hover:underline hover:translate-x-[-2px] transition-colors duration-300 ease-in-out">About Me</p>
                 </Link>
               </li>
               <li>
                 <Link href="#" passHref>
-                  <p className="text-white hover:text-gray-800">Contact</p>
+                  <p className="w-2/5 hover:underline hover:translate-x-[-2px] transition-colors duration-300 ease-in-out">Contact</p>
                 </Link>
               </li>
               <li>
                 <Link href="#" passHref>
-                  <p className="text-white hover:text-gray-800">Blog</p>
+                  <p className="w-2/5 hover:underline hover:translate-x-[-2px] transition-colors duration-300 ease-in-out">Blog</p>
                 </Link>
               </li>
               <li>
                 <Link href="#" passHref>
-                  <p className="text-white hover:text-gray-800">Services</p>
+                  <p className="w-2/5 hover:underline hover:translate-x-[-2px] transition-colors duration-300 ease-in-out">Services</p>
                 </Link>
               </li>
             </ul>
@@ -49,44 +53,39 @@ export default function Footer() {
             <ul className="space-y-2">
               <li>
                 <Link href="#" passHref>
-                  <p className="text-white hover:text-gray-800">Health</p>
+                  <p className=" w-2/5 hover:underline hover:translate-x-[-2px] transition-colors duration-300 ease-in-out">Health</p>
                 </Link>
               </li>
               <li>
                 <Link href="#" passHref>
-                  <p className="text-white hover:text-gray-800">Music</p>
+                  <p className=" w-2/5 hover:underline hover:translate-x-[-2px] transition-colors duration-300 ease-in-out">Music</p>
                 </Link>
               </li>
               <li>
                 <Link href="#" passHref>
-                  <p className="text-white hover:text-gray-800">Travel</p>
+                  <p className=" w-2/5 hover:underline hover:translate-x-[-2px] transition-colors duration-300 ease-in-out">Travel</p>
                 </Link>
               </li>
               <li>
                 <Link href="#" passHref>
-                  <p className="text-white hover:text-gray-800">Lifestyle</p>
+                  <p className=" w-2/5 hover:underline hover:translate-x-[-2px] transition-colors duration-300 ease-in-out">Lifestyle</p>
                 </Link>
               </li>
               <li>
                 <Link href="#" passHref>
-                  <p className="text-white hover:text-gray-800">Technology</p>
+                  <p className=" w-2/5 hover:underline hover:translate-x-[-2px] transition-colors duration-300 ease-in-out">Technology</p>
                 </Link>
               </li>
             </ul>
           </nav>
         </div>
         <div>
-          <h3 className="text-lg font-semibold text-white">Address</h3>
-          <address className="mt-4 not-italic">
-            <p className="text-white">Dieter Wellhausen, D-11179 Berlin</p>
-            <p className="text-white">+49 241 241</p>
-            <p className="text-white">demo@rivaxstudio.com</p>
-          </address>
+          <h3 className="text-lg font-semibold">Newsletter</h3>
         </div>
       </div>
       <div className="border-t mt-8">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <p className="text-center text-white text-sm">Copyright © 2023 Litwords. All Rights Reserved.</p>
+          <p className="text-center text-sm">Copyright © 2023 Litwords. All Rights Reserved.</p>
         </div>
       </div>
     </footer>
@@ -133,3 +132,5 @@ function XIcon(props: React.SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+
+export default Footer;

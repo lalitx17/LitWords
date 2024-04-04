@@ -4,7 +4,13 @@ import Image from "next/image";
 
 import logo from "../../public/image/litwords4.png";
 
-function Navbar() {
+interface NavbarProps {
+  imageSrc: string;
+  className?: string;
+
+}
+
+const Navbar: React.FC<NavbarProps> = ({ imageSrc, className }) => {
     const [isMenuVisible, setIsMenuVisible] = useState<boolean>(false);
   
     const toggleMenu = () => {
@@ -16,7 +22,7 @@ function Navbar() {
         <div className="border-b-[1px] md:flex md:items-center md:justify-between">
           <div className="flex items-center justify-between ">
             <div className="text-xl font-bold text-white">
-              <Image src={logo.src} width={200} height={50} alt="Your Logo" />
+              <Image src={imageSrc} width={200} height={50} alt="Your Logo" />
             </div>
             <div className="md:hidden">
               {/* Hamburger menu button */}
@@ -45,10 +51,10 @@ function Navbar() {
           >
             {" "}
             {/* display:hidden and display:flex makes the toggle possible */}
-            <a href="#" className="text-white">
+            <a href="#" className={`${className}`}>
               Blogs
             </a>
-            <a href="#" className="text-white">
+            <a href="#" className={`${className}`}>
               Reviews
             </a>
           </div>

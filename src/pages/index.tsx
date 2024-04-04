@@ -4,6 +4,7 @@ import HomeScreen from "~/globalComponents/Homescreen";
 import solitude from "../../public/image/solitude.jpg";
 import Footer from "~/globalComponents/Footer";
 import BlogHouse from "~/globalComponents/BlogHouse";
+import LitwordsWhite from "../../public/image/litwordsWhite.png";
 
 export default function Home() {
   return (
@@ -39,7 +40,7 @@ export default function Home() {
           </div>
           <div className="bg1 bg2">
             <div className="h-full backdrop-blur">
-              <Navbar />
+            <Navbar imageSrc={LitwordsWhite.src} className={"text-white"}/>
               <HomeScreen />
               <svg
                 viewBox="0 89.467 500 88.832"
@@ -58,7 +59,7 @@ export default function Home() {
             </div>
           </div>
           <BlogHouse />
-          <Footer />
+          <Footer classNameColor={"bg-secondary-background, text-white"}  />
         </div>
         
       </main>
