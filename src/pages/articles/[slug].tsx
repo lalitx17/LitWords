@@ -4,6 +4,8 @@ import type { FormEvent } from "react";
 import { useRouter } from "next/router";
 import { api } from "~/utils/api";
 import Layout from "../layout";
+import Head from "next/head";
+import quirkyLalit from "/public/image/QuirkyLality2.jpg";
 
 
 interface Comment {
@@ -11,9 +13,8 @@ interface Comment {
   email: string;
   comment: string;
 }
-
+ 
 const ArticlePage:React.FC = () => {
-  const [activeLikes, setActiveLikes] = useState<number>(0);
   const [activeComments, setActiveComments] = useState<Comment[]>([]);
   const router = useRouter();
 
@@ -21,22 +22,42 @@ const ArticlePage:React.FC = () => {
 
   const {data} = api.posts.getbyId.useQuery({id:slug});
 
-  const handleLike = (): void => {
-    setActiveLikes(activeLikes + 1);
-  };
-
   const handleComment = (name: string, email: string, comment: string): void => {
     setActiveComments([...activeComments, { name, email, comment }]);
   };
 
   return (
+    <>
+    <Head>
+      <title>{data?.title}</title>
+      <meta name="description" content={data?.content} />
+    </Head>
     <Layout>
-    <div className="p-4 md:p-8 md:mx-[10em]">
+    <div className="p-4 md:p-8 md:mx-[20em]">
       <h1 className="mb-4 text-2xl font-bold md:text-4xl">{data?.title}</h1>
+      <p className="text-base">Continued strength is due in part to both U.S. and European commitments to climate-forward industrial policies</p>
+      <div className="my-2 flex flex-row">
+            <Image
+              src={quirkyLalit.src}
+              width={50}
+              height={50}
+              alt="quirkyLalit"
+              className="rounded-full"
+            />
+            <div className="mx-2 my-auto font-montser text-[14px] flex flex-col">
+              <span className="mx-2 font-[600]">
+                <i>Lalit Yadav</i>
+              </span>
+              <span className="ms-2">
+                Published on . {String(data?.createdAt).slice(0,15)}
+              </span>
+            </div>
+          </div>
+          <hr />
       <div className="mb-4">
         <Image
           src="/image/solitude.jpg"
-          width={600}
+          width={700}
           height={400}
           alt="solitude"
           className="rounded-[40px] p-8"
@@ -45,12 +66,6 @@ const ArticlePage:React.FC = () => {
       <p className="mb-4">
         {data?.content}
       </p>
-      <button
-        className="rounded bg-blue-500 px-4 py-2 text-white"
-        onClick={handleLike}
-      >
-        Like {data?.likes}
-      </button>
       <div className="mt-4">
         <h2 className="mb-2 text-xl font-bold md:text-2xl">Comments</h2>
         {activeComments.map((comment, index) => (
@@ -102,6 +117,7 @@ const ArticlePage:React.FC = () => {
       </div>
     </div>
     </Layout>
+    </>
   );
 };
 
