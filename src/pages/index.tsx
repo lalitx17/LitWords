@@ -7,6 +7,7 @@ import BlogHouse from "~/globalComponents/BlogHouse";
 import LitwordsWhite from "../../public/image/litwordsWhite.png";
 
 export default function Home() {
+  console.log("server side rendering");
   return (
     <>
       <Head>
