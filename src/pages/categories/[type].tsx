@@ -17,6 +17,10 @@ const Category: React.FC = () => {
 
     return (
         <Layout>
+            <div className='my-4 p-4 border border-grey-200 mx-4 rounded-md'>
+            <p className="text-4xl font-semibold text-center">{data?.[0]?.tags[0]}</p>
+            </div>
+            
             {Array.from({ length: rowCount }, (_, index) => (
                 <div key={index} className="flex basis-6/12 flex-col">
                     {cards.slice(index * 2, index * 2 + 2)}
