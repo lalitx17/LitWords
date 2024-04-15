@@ -9,14 +9,19 @@ interface FormData {
   title: string;
   content: string;
   tags: string[];
+  image: string;
 }
 
 export default function MyForm() {
 
-const ctx = api.useUtils();
-
 const { mutate, isLoading: isPosting } = api.posts.create.useMutation({
-   
+   onSuccess: () => {
+    setFormData(() => ({
+      ...initialStateFormData,
+    }))}, 
+    onError: (err) => {
+      console.error(err);
+    }
    
 });
 
@@ -24,7 +29,8 @@ const { mutate, isLoading: isPosting } = api.posts.create.useMutation({
 const initialStateFormData = {
 title: '',
 content: '',
-tags: []
+tags: [],
+image: ''
 };
 
   const [formData, setFormData] = useState<FormData>(initialStateFormData);
@@ -48,14 +54,14 @@ tags: []
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (Object.keys(formData).length !== 0){
-      mutate({title:formData.title, content: formData.content, tags: formData.tags})
+      mutate({title:formData.title, content: formData.content, tags: formData.tags, image: formData.image})
     }
-    setFormData(() => ({
-      ...initialStateFormData,
-    }))
+    console.log(formData);
    };
 
   return (
+    <>
+    <h1 className="text-2xl font-semibold text-center">Create a new post</h1>
     <div className="max-w-md mx-auto my-10 p-6 bg-white rounded-md shadow-md">
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
@@ -67,6 +73,21 @@ tags: []
             id="title"
             name="title"
             value={formData.title}
+            onChange={handleChange}
+            className="w-full p-2 border rounded-md"
+            required
+          />
+        </div>
+
+        <div className="mb-4">
+          <label htmlFor="title" className="block text-gray-600 font-semibold mb-2">
+            image
+          </label>
+          <input
+            type="text"
+            id="image"
+            name="image"
+            value={formData.image}
             onChange={handleChange}
             className="w-full p-2 border rounded-md"
             required
@@ -110,6 +131,7 @@ tags: []
         </button>
       </form>
     </div>
+    </>
   );
 };
 

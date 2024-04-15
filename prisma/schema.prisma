@@ -11,8 +11,8 @@ model Article {
     id        String   @id @default(cuid())
     createdAt DateTime @default(now())
     title     String
-    image     String
     tags      String[]
+    image     String
     content   String
     likes     Int      @default(0)
     comments  String[]
