@@ -1,6 +1,7 @@
 // src/components/SignupForm.tsx
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
+import cookie from 'js-cookie';
 
 interface SignupFormData {
   username: string;
@@ -26,6 +27,7 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (formData.username == "lalitx17" && formData.password == "1234") {
+      cookie.set("lit", "xyxyxy" , { expires: 30 });
       router.push("/admin/editor").catch((err) => console.error(err));
     } else {
         formData.username == "" || formData.password == "" ? alert("Please fill all the fields") : alert("Invalid Credentials");

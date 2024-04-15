@@ -17,3 +17,10 @@ model Article {
     likes     Int      @default(0)
     comments  String[]
 }
+
+//model Token {
+// id     String @id @default(cuid())
+//userId String
+//value  String
+//user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+//}

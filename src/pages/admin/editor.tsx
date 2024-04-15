@@ -1,5 +1,6 @@
 import { useState} from 'react';
 import type { ChangeEvent, FormEvent } from 'react';
+import cookie from 'js-cookie';
 
 
 import { api } from '~/utils/api';
@@ -13,6 +14,7 @@ interface FormData {
 }
 
 export default function MyForm() {
+  console.log(cookie.get("lit"));
 
 const { mutate, isLoading: isPosting } = api.posts.create.useMutation({
    onSuccess: () => {
