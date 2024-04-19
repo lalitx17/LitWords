@@ -25,6 +25,14 @@ export const postRouter = createTRPCRouter({
     return blog;
   }),
 
+  getbyTag:publicProcedure.input(z.object({tag: z.string()})).query(async ({ctx, input}) => {
+    const blogs = await ctx.db.article.findMany({
+      where: {tags: {hasSome: [input.tag]}},
+      orderBy:[{createdAt: 'desc'}]
+    });
+    return blogs;
+  }),
+
   create:publicProcedure.input(z.object({
     title: z.string(), content: z.string(), tags: z.array(z.string()), image: z.string()
   })).mutation(async ({ctx, input}) => {

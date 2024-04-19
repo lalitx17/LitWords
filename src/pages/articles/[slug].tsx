@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Image from "next/image";
-import type { FormEvent } from "react";
 import { useRouter } from "next/router";
 import { api } from "~/utils/api";
 import Layout from "../layout";

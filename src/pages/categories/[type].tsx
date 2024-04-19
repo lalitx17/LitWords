@@ -1,9 +1,14 @@
 import Layout from '../layout';
 import BlogcardCategory from '~/globalComponents/BlogCardCategory';
 import { api } from "~/utils/api";
+import {useRouter} from 'next/router';
 
 const Category: React.FC = () => {
-    const { data } = api.posts.getAll.useQuery();
+    const router = useRouter();
+
+    const tagName = router.query.slug as string;
+
+    const { data } = api.posts.getbyTag.useQuery({ tag: tagName });
 
     const cards: JSX.Element[] = [];
   
