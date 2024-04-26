@@ -1,6 +1,7 @@
 import { useState} from 'react';
 import type { ChangeEvent, FormEvent } from 'react';
 import cookie from 'js-cookie';
+import MarkdownEditor from './markdowneditor';
 
 
 import { api } from '~/utils/api';
@@ -124,6 +125,8 @@ image: ''
           />
         </div>
 
+        <MarkdownEditor />
+
         <button
           type="submit"
           className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue"
@@ -137,3 +140,4 @@ image: ''
   );
 };
 
+//react-markdown
