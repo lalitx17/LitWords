@@ -36,3 +36,4 @@ const Category: React.FC = () => {
 }
 
 export default Category;
+

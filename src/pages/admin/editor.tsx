@@ -1,7 +1,7 @@
 import { useState} from 'react';
 import type { ChangeEvent, FormEvent } from 'react';
 import cookie from 'js-cookie';
-import MarkdownEditor from './markdowneditor';
+import MarkdownEditor from '../../globalComponents/markdowneditor';
 
 
 import { api } from '~/utils/api';

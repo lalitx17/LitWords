@@ -6,6 +6,8 @@ import Layout from "../layout";
 import Head from "next/head";
 import quirkyLalit from "/public/image/QuirkyLality2.jpg";
 import CommentForm from "~/globalComponents/Comment";
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from "remark-gfm";
 
 
 interface Comment {
@@ -25,6 +27,28 @@ const ArticlePage: React.FC = () => {
   const handleComment = (name: string, email: string, comment: string): void => {
     setActiveComments([...activeComments, { name, email, comment }]);
   };
+
+  const markdown = `A paragraph with *emphasis* and **strong importance**.
+
+> A block quote with ~strikethrough~ and a URL: https://reactjs.org.
+
+* Lists
+* [ ] todo
+* [x] done
+
+A table:
+
+| a | b |
+| - | - |
+
+
+Lalit
+**Kumar**
+*Yadav*
+1. Gandu
+2. chandu
+*  Mandu
+`
 
   return (
     <>
@@ -64,7 +88,9 @@ const ArticlePage: React.FC = () => {
             />
           </div>
           <p className="mb-4">
-            {data?.content}
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {data?.content}
+            </ReactMarkdown>
           </p>
           <div className="mt-4">
             <h2 className="mb-4 text-xl font-bold md:text-2xl">Comments</h2>
