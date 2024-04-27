@@ -6,9 +6,17 @@ import Layout from "../layout";
 import Head from "next/head";
 import quirkyLalit from "/public/image/QuirkyLality2.jpg";
 import CommentForm from "~/globalComponents/Comment";
-import ReactMarkdown from 'react-markdown';
 import remarkGfm from "remark-gfm";
+import ReactMarkdown from "react-markdown";
 
+interface imageProps {
+  src: string;
+  alt: string;
+}
+
+const renderImage = ({ src, alt }: imageProps) => {
+  return <Image src={src} alt={alt} width={500} height={5} className="rounded-[40px]" />;
+};
 
 interface Comment {
   name: string;
@@ -27,6 +35,7 @@ const ArticlePage: React.FC = () => {
   const handleComment = (name: string, email: string, comment: string): void => {
     setActiveComments([...activeComments, { name, email, comment }]);
   };
+
 
   const markdown = `A paragraph with *emphasis* and **strong importance**.
 
@@ -48,6 +57,8 @@ Lalit
 1. Gandu
 2. chandu
 *  Mandu
+
+![Christopher Nolan](https://upload.wikimedia.org/wikipedia/commons/9/95/Christopher_Nolan_Cannes_2018.jpg)
 `
 
   return (
@@ -87,11 +98,17 @@ Lalit
               className="rounded-[40px] p-8"
             />
           </div>
-          <p className="mb-4">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>
-              {data?.content}
+          <div className="mb-4">
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              components={{
+                img: renderImage,
+              }}
+            >
+              {markdown}
             </ReactMarkdown>
-          </p>
+
+          </div>
           <div className="mt-4">
             <h2 className="mb-4 text-xl font-bold md:text-2xl">Comments</h2>
             <div className="space-y-4">
@@ -112,5 +129,7 @@ Lalit
     </>
   );
 };
+
+
 
 export default ArticlePage;

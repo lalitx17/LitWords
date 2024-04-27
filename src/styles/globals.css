@@ -10,5 +10,9 @@ html {
 
 
 
-
+.custom-markdown-image {
+  width: 5px;
+  height: 5px;
+  border-radius: 40px;
+}
 
