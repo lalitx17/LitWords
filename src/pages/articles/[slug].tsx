@@ -8,15 +8,19 @@ import quirkyLalit from "/public/image/QuirkyLality2.jpg";
 import CommentForm from "~/globalComponents/Comment";
 import remarkGfm from "remark-gfm";
 import ReactMarkdown from "react-markdown";
+import type { ReactMarkdownProps } from "react-markdown/lib/complex-types";
+
 
 interface imageProps {
   src: string;
   alt: string;
 }
 
-const renderImage = ({ src, alt }: imageProps) => {
-  return <Image src={src} alt={alt} width={500} height={5} className="rounded-[40px]" />;
+const renderImage = (props: ReactMarkdownProps) => {
+  const ImageProps = props as unknown as imageProps;
+  return <Image src={ImageProps.src} alt={ImageProps.alt} width={500} height={5} className="rounded-[40px]" />;
 };
+
 
 interface Comment {
   name: string;
@@ -102,7 +106,12 @@ Lalit
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               components={{
-                img: renderImage,
+                /* img(props) {
+                  const ImageProps = props as imageProps;
+                  return <Image src={ImageProps.src} alt={ImageProps.alt} width={500} height={5} className="rounded-[40px]" />;
+                } */
+
+                img: renderImage
               }}
             >
               {markdown}
