@@ -34,14 +34,13 @@ export const postRouter = createTRPCRouter({
   }),
 
   create:publicProcedure.input(z.object({
-    title: z.string(), content: z.string(), tags: z.array(z.string()), image: z.string()
+    title: z.string(), content: z.string(), tags: z.array(z.string())
   })).mutation(async ({ctx, input}) => {
     const article = await ctx.db.article.create({
       data: {
           title: input.title, 
           tags: input.tags,
           content: input.content,
-          image: input.image
       },
   });
   return article; 

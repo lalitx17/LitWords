@@ -12,7 +12,6 @@ model Article {
     createdAt DateTime @default(now())
     title     String
     tags      String[]
-    image     String
     content   String
     likes     Int      @default(0)
     comments  String[]

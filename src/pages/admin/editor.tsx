@@ -11,7 +11,6 @@ interface FormData {
   title: string;
   content: string;
   tags: string[];
-  image: string;
 }
 
 export default function MyForm() {
@@ -33,7 +32,6 @@ const initialStateFormData = {
 title: '',
 content: '',
 tags: [],
-image: ''
 };
 
   const [formData, setFormData] = useState<FormData>(initialStateFormData);
@@ -54,18 +52,25 @@ image: ''
     }
   };
 
+  const handleContentChange = (content: string) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      content,
+    }));
+  }
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (Object.keys(formData).length !== 0){
-      mutate({title:formData.title, content: formData.content, tags: formData.tags, image: formData.image})
+      mutate({title:formData.title, content: formData.content, tags: formData.tags})
     }
     console.log(formData);
    };
 
   return (
     <>
-    <h1 className="text-2xl font-semibold text-center">Create a new post</h1>
-    <div className="max-w-md mx-auto my-10 p-6 bg-white rounded-md shadow-md">
+    <h1 className="text-2xl font-semibold text-center">Create a New Post</h1>
+    <div className="w-4/5 mx-auto my-10 p-6 bg-white rounded-md shadow-md">
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label htmlFor="title" className="block text-gray-600 font-semibold mb-2">
@@ -82,20 +87,6 @@ image: ''
           />
         </div>
 
-        <div className="mb-4">
-          <label htmlFor="title" className="block text-gray-600 font-semibold mb-2">
-            image
-          </label>
-          <input
-            type="text"
-            id="image"
-            name="image"
-            value={formData.image}
-            onChange={handleChange}
-            className="w-full p-2 border rounded-md"
-            required
-          />
-        </div>
 
         <div className="mb-4">
           <label htmlFor="tags" className="block text-gray-600 font-semibold mb-2">
@@ -111,21 +102,7 @@ image: ''
           />
         </div>
 
-        <div className="mb-4">
-          <label htmlFor="content" className="block text-gray-600 font-semibold mb-2">
-            Content
-          </label>
-          <textarea
-            id="content"
-            name="content"
-            value={formData.content}
-            onChange={handleChange}
-            className="w-full p-2 border rounded-md"
-            required
-          />
-        </div>
-
-        <MarkdownEditor />
+        <MarkdownEditor onDataChange={(data) => handleContentChange(data)} />
 
         <button
           type="submit"
