@@ -5,54 +5,48 @@ import MarkdownEditor from '../../globalComponents/markdowneditor';
 
 
 import { api } from '~/utils/api';
+import { set } from 'zod';
 
 
 interface FormData {
   title: string;
   content: string;
-  tags: string[];
+  tags: string;
 }
 
 export default function MyForm() {
   console.log(cookie.get("lit"));
 
+
 const { mutate, isLoading: isPosting } = api.posts.create.useMutation({
    onSuccess: () => {
     setFormData(() => ({
       ...initialStateFormData,
-    }))}, 
+    }))
+  }, 
     onError: (err) => {
       console.error(err);
     }
    
 });
 
-  
 const initialStateFormData = {
 title: '',
 content: '',
-tags: [],
+tags: ""
 };
 
   const [formData, setFormData] = useState<FormData>(initialStateFormData);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-
-    if (name == 'tags'){
-        setFormData((prevData) => ({
-            ...prevData, 
-            [name]: value.split(',').map((tag) => tag.trim()),
-        }));
-    } else{
         setFormData((prevData) => ({
             ...prevData,
             [name]: value,
           }));
-    }
   };
 
-  const handleContentChange = (content: string) => {
+  const handleContentChange = (content: string) => {;
     setFormData((prevData) => ({
       ...prevData,
       content,
@@ -61,10 +55,10 @@ tags: [],
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    const updatedTags = formData.tags.split(',').map(tag => tag.trim());
     if (Object.keys(formData).length !== 0){
-      mutate({title:formData.title, content: formData.content, tags: formData.tags})
+      mutate({title:formData.title, content: formData.content, tags: updatedTags})
     }
-    console.log(formData);
    };
 
   return (
@@ -96,7 +90,7 @@ tags: [],
             type="text"
             id="tags"
             name="tags"
-            value={formData.tags.join(', ')}
+            value={formData.tags}
             onChange={handleChange}
             className="w-full p-2 border rounded-md"
           />

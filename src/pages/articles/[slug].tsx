@@ -41,29 +41,7 @@ const ArticlePage: React.FC = () => {
   };
 
 
-  const markdown = `A paragraph with *emphasis* and **strong importance**.
-
-> A block quote with ~strikethrough~ and a URL: https://reactjs.org.
-
-* Lists
-* [ ] todo
-* [x] done
-
-A table:
-
-| a | b |
-| - | - |
-
-
-Lalit
-**Kumar**
-*Yadav*
-1. Gandu
-2. chandu
-*  Mandu
-
-![Christopher Nolan](https://upload.wikimedia.org/wikipedia/commons/9/95/Christopher_Nolan_Cannes_2018.jpg)
-`
+  const markdown = data?.content ?? "";
 
   return (
     <>
@@ -106,17 +84,11 @@ Lalit
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               components={{
-                /* img(props) {
-                  const ImageProps = props as imageProps;
-                  return <Image src={ImageProps.src} alt={ImageProps.alt} width={500} height={5} className="rounded-[40px]" />;
-                } */
-
                 img: renderImage
               }}
             >
               {markdown}
             </ReactMarkdown>
-
           </div>
           <div className="mt-4">
             <h2 className="mb-4 text-xl font-bold md:text-2xl">Comments</h2>

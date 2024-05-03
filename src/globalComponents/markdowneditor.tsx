@@ -10,6 +10,7 @@ const SimpleMDE = dynamic(() => import('react-simplemde-editor'), { ssr: false }
 
 interface MarkdownEditorPageProps { 
   onDataChange: (data: string) => void;
+
 }
 
 const MarkdownEditorPage: React.FC<MarkdownEditorPageProps> = ({onDataChange}) => {
