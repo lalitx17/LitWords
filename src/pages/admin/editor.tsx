@@ -2,20 +2,22 @@ import { useState} from 'react';
 import type { ChangeEvent, FormEvent } from 'react';
 import cookie from 'js-cookie';
 import MarkdownEditor from '../../globalComponents/markdowneditor';
+import { useForm } from "~/context/useFrom";
 
 
 import { api } from '~/utils/api';
-import { set } from 'zod';
 
-
-interface FormData {
-  title: string;
-  content: string;
-  tags: string;
-}
 
 export default function MyForm() {
   console.log(cookie.get("lit"));
+
+  const initialStateFormData = {
+    title: '',
+    content: '',
+    tags: ""
+    };
+
+  const { formData, setFormData } = useForm();
 
 
 const { mutate, isLoading: isPosting } = api.posts.create.useMutation({
@@ -30,13 +32,6 @@ const { mutate, isLoading: isPosting } = api.posts.create.useMutation({
    
 });
 
-const initialStateFormData = {
-title: '',
-content: '',
-tags: ""
-};
-
-  const [formData, setFormData] = useState<FormData>(initialStateFormData);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
