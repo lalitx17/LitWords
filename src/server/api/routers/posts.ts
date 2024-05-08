@@ -45,6 +45,16 @@ export const postRouter = createTRPCRouter({
   });
   return article; 
 }),
+comment:publicProcedure.input(z.object({
+  name: z.string(), email: z.string(), comment: z.string()
+})).mutation(async ({ctx, input}) => {
+  const comment = await ctx.db.comment.create({
+    data: {
+        name: input.name, 
+        email: input.email,
+        comment: input.comment,
+    },
+});
 
   
 

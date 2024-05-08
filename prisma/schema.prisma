@@ -8,24 +8,32 @@ generator client {
 }
 
 model user {
-    id           String @id @default(cuid())
+    userID       String @id @default(cuid())
     username     String
     salt         String
     passwordHash String
 }
 
 model Article {
-    id        String   @id @default(cuid())
-    createdAt DateTime @default(now())
+    articleId String    @id @default(cuid())
+    createdAt DateTime  @default(now())
     title     String
     tags      String[]
     content   String
-    likes     Int      @default(0)
-    comments  String[]
+    likes     Int       @default(0)
+    comments  Comment[]
 }
 
 model Token {
-    id     String @id @default(cuid())
-    userId String
-    value  String
+    tokenId String @id @default(cuid())
+    userId  String
+    value   String
+}
+
+model Comment {
+    commentId String  @id @default(cuid())
+    name      String
+    email     String
+    comment   String
+    article   Article @relation(fields: [commentId], references: [articleId])
 }
