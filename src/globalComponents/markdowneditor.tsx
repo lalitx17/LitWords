@@ -1,26 +1,21 @@
 // pages/markdown-editor.tsx
 
-import React, { useState } from 'react';
 import 'easymde/dist/easymde.min.css'; // Import CSS for SimpleMDE
-
 import dynamic from 'next/dynamic';
 import { useMemo } from 'react';
+import {useForm} from '~/context/useFrom';
 
 const SimpleMDE = dynamic(() => import('react-simplemde-editor'), { ssr: false });
 
-interface MarkdownEditorPageProps { 
-  onDataChange: (data: string) => void;
+const MarkdownEditorPage: React.FC = () => {
 
-}
-
-const MarkdownEditorPage: React.FC<MarkdownEditorPageProps> = ({onDataChange}) => {
-
-
-  const [markdown, setMarkdown] = useState<string>(''); // State to store Markdown content
+  const {formData, setFormData} = useForm();
 
   const onMarkdownChange = (markdown: string) => {
-    setMarkdown(markdown);
-    onDataChange(markdown);
+    setFormData((prevData) => ({
+      ...prevData,
+      content: markdown,
+    }));
   }
 
   const autofocusNoSpellcheckerOptions = useMemo(() => {
@@ -38,7 +33,7 @@ const MarkdownEditorPage: React.FC<MarkdownEditorPageProps> = ({onDataChange}) =
 
   return (
     <div>
-      <SimpleMDE options={autofocusNoSpellcheckerOptions} value={markdown} onChange={onMarkdownChange} />
+      <SimpleMDE options={autofocusNoSpellcheckerOptions} value={formData.content} onChange={onMarkdownChange} />
     </div>
   );
 };

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { api } from "~/utils/api";
@@ -21,15 +20,8 @@ const renderImage = (props: ReactMarkdownProps) => {
 };
 
 
-interface Comment {
-  name: string;
-  email: string;
-  comment: string;
-  articleId: string;
-}
 
 const ArticlePage: React.FC = () => {
-  const [activeComments] = useState<Comment[]>([]);
   const router = useRouter();
 
   const slug = router.query.slug as string;
@@ -82,15 +74,6 @@ const ArticlePage: React.FC = () => {
             </div>
           </div>
           <hr />
-          <div className="mb-4">
-            <Image
-              src="/image/solitude.jpg"
-              width={700}
-              height={400}
-              alt="solitude"
-              className="rounded-[40px] p-8"
-            />
-          </div>
           <div className="mb-4">
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}

@@ -9,7 +9,7 @@ generator client {
 
 model user {
     userID       String @id @default(cuid())
-    username     String
+    username     String @unique
     salt         String
     passwordHash String
 }
@@ -35,6 +35,6 @@ model Comment {
     name      String
     email     String
     comment   String
-    articleId String
+    articleId String  @unique
     article   Article @relation(fields: [articleId], references: [articleId])
 }
