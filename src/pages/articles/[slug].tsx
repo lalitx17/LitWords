@@ -8,10 +8,25 @@ import CommentForm from "~/globalComponents/Comment";
 import remarkGfm from "remark-gfm";
 import ReactMarkdown from "react-markdown";
 import type { ReactMarkdownProps } from "react-markdown/lib/complex-types";
+import { PrismaClient} from "@prisma/client";
+import type { GetServerSideProps } from "next";
 
 interface imageProps {
   src: string;
   alt: string;
+}
+
+interface ArticlePageProps {
+  article: {
+    title: string;
+    content: string;
+    createdAt: string;
+    comments: {
+      name: string;
+      email: string;
+      comment: string;
+    }[];
+  };
 }
 
 const renderImage = (props: ReactMarkdownProps) => {
@@ -20,13 +35,11 @@ const renderImage = (props: ReactMarkdownProps) => {
 };
 
 
-
-const ArticlePage: React.FC = () => {
+const ArticlePage: React.FC<ArticlePageProps> = ({article}) => {
   const router = useRouter();
 
   const slug = router.query.slug as string;
 
-  const { data } = api.posts.getbyId.useQuery({ articleId: slug });
 
   const {mutate, isLoading: isPosting} = api.posts.comment.useMutation({
     onSuccess: () => {
@@ -44,17 +57,17 @@ const ArticlePage: React.FC = () => {
   };
 };
 
-  const markdown = data?.content ?? "";
+  const markdown = article?.content ?? "";
 
   return (
     <>
       <Head>
-        <title>{data?.title}</title>
-        <meta name="description" content={data?.content} />
+        <title>{article?.title}</title>
+        <meta name="description" content={article?.content} />
       </Head>
       <Layout>
         <div className="p-4 md:p-8 md:mx-[20em]">
-          <h1 className="mb-4 text-2xl font-bold md:text-4xl">{data?.title}</h1>
+          <h1 className="mb-4 text-2xl font-bold md:text-4xl">{article?.title}</h1>
           <p className="text-base">Continued strength is due in part to both U.S. and European commitments to climate-forward industrial policies</p>
           <div className="my-2 flex flex-row">
             <Image
@@ -69,7 +82,7 @@ const ArticlePage: React.FC = () => {
                 <i>Lalit Yadav</i>
               </span>
               <span className="ms-2">
-                Published on . {String(data?.createdAt).slice(0, 15)}
+                Published on . {String(article?.createdAt).slice(0, 15)}
               </span>
             </div>
           </div>
@@ -87,7 +100,7 @@ const ArticlePage: React.FC = () => {
           <div className="mt-4">
             <h2 className="mb-4 text-xl font-bold md:text-2xl">Comments</h2>
             <div className="space-y-4">
-              {data?.comments.map((comment, index) => (
+              {article?.comments.map((comment, index) => (
                 <div key={index} className="bg-white shadow-md p-4 rounded-lg">
                   <div className="flex items-center mb-2">
                     <strong className="mr-2">{comment.name}</strong>
@@ -107,6 +120,25 @@ const ArticlePage: React.FC = () => {
   );
 };
 
+
+export const getServerSideProps: GetServerSideProps  = async (context) => {
+  const slug = context.query.slug as string;
+  const prisma = new PrismaClient();
+  const article = await prisma.article.findUnique({
+    where: {
+      articleId: slug,
+    },
+    include: {
+      comments: true,
+    },
+  });
+  await prisma.$disconnect();
+  return {
+    props: {
+      article: JSON.parse(JSON.stringify(article)) as ArticlePageProps["article"],
+    }
+  };
+}
 
 
 export default ArticlePage;

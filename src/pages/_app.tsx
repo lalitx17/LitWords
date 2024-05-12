@@ -5,6 +5,13 @@ import FormProvider from "~/context/formProvider";
 
 import "~/styles/globals.css";
 
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
+
+const queryClient = new QueryClient();
+
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <>
@@ -12,9 +19,11 @@ const MyApp: AppType = ({ Component, pageProps }) => {
     <Head>
     <title>LitWords</title>
     </Head>
+    <QueryClientProvider client={queryClient}>
   <FormProvider>
   <Component {...pageProps} />
   </FormProvider>
+  </QueryClientProvider>
   </>
   );
 };
