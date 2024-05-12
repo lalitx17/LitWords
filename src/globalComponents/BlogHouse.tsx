@@ -10,7 +10,7 @@ export default function BlogHouse() {
   
     if (data?.length) {
       for (const article of data) {
-        cards.push(<Blogcard {...article} key={article.id} />);
+        cards.push(<Blogcard {...article} key={article.articleId} />);
       }
       blogNumber = data.length;
     }

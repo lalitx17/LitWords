@@ -10,8 +10,6 @@ import remarkGfm from "remark-gfm";
 import ReactMarkdown from "react-markdown";
 import type { ReactMarkdownProps } from "react-markdown/lib/complex-types";
 
-
-
 interface imageProps {
   src: string;
   alt: string;
@@ -27,20 +25,32 @@ interface Comment {
   name: string;
   email: string;
   comment: string;
+  articleId: string;
 }
 
 const ArticlePage: React.FC = () => {
-  const [activeComments, setActiveComments] = useState<Comment[]>([]);
+  const [activeComments] = useState<Comment[]>([]);
   const router = useRouter();
 
   const slug = router.query.slug as string;
 
-  const { data } = api.posts.getbyId.useQuery({ id: slug });
+  const { data } = api.posts.getbyId.useQuery({ articleId: slug });
+
+  const {mutate, isLoading: isPosting} = api.posts.comment.useMutation({
+    onSuccess: () => {
+      console.log("Comment added");
+    },
+    onError: (err) => {
+      console.error(err);
+    }
+  });
+
 
   const handleComment = (name: string, email: string, comment: string): void => {
-    setActiveComments([...activeComments, { name, email, comment }]);
+    if (!isPosting && name && email && comment) {
+      mutate({name, email, comment, articleId: slug});
   };
-
+};
 
   const markdown = data?.content ?? "";
 
@@ -94,7 +104,7 @@ const ArticlePage: React.FC = () => {
           <div className="mt-4">
             <h2 className="mb-4 text-xl font-bold md:text-2xl">Comments</h2>
             <div className="space-y-4">
-              {activeComments.map((comment, index) => (
+              {data?.comments.map((comment, index) => (
                 <div key={index} className="bg-white shadow-md p-4 rounded-lg">
                   <div className="flex items-center mb-2">
                     <strong className="mr-2">{comment.name}</strong>
@@ -105,7 +115,9 @@ const ArticlePage: React.FC = () => {
               ))}
             </div>
           </div>
+
           <CommentForm onChange={(name, email, comment) => handleComment(name, email, comment)} />
+
         </div>
       </Layout>
     </>

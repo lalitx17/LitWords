@@ -14,7 +14,7 @@ const Category: React.FC = () => {
   
     if (data?.length) {
       for (const article of data) {
-        cards.push(<BlogcardCategory {...article} key={article.id} />);
+        cards.push(<BlogcardCategory {...article} key={article.articleId} />);
       }
     }
 

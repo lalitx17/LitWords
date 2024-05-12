@@ -35,5 +35,6 @@ model Comment {
     name      String
     email     String
     comment   String
-    article   Article @relation(fields: [commentId], references: [articleId])
+    articleId String
+    article   Article @relation(fields: [articleId], references: [articleId])
 }

@@ -29,7 +29,6 @@ const { mutate, isLoading: isPosting } = api.posts.create.useMutation({
     onError: (err) => {
       console.error(err);
     }
-   
 });
 
 

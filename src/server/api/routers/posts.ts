@@ -18,9 +18,10 @@ export const postRouter = createTRPCRouter({
     return blogs;
   }),
 
-  getbyId:publicProcedure.input(z.object({id: z.string()})).query(async ({ctx, input}) => {
+  getbyId:publicProcedure.input(z.object({articleId: z.string()})).query(async ({ctx, input}) => {
     const blog = await ctx.db.article.findUnique({
-      where: {id: input.id}
+      where: {articleId: input.articleId}, 
+      include: {comments: true}
     });
     return blog;
   }),
@@ -45,18 +46,24 @@ export const postRouter = createTRPCRouter({
   });
   return article; 
 }),
+
 comment:publicProcedure.input(z.object({
-  name: z.string(), email: z.string(), comment: z.string()
+  name: z.string(), email: z.string(), comment: z.string(), articleId: z.string()
 })).mutation(async ({ctx, input}) => {
   const comment = await ctx.db.comment.create({
     data: {
         name: input.name, 
         email: input.email,
         comment: input.comment,
+        article: {
+            connect: {articleId: input.articleId}
+        }
     },
 });
+return comment; 
+}),
 
-  
+
 
 /*   create: publicProcedure
     .input(z.object({ name: z.string().min(1) }))
