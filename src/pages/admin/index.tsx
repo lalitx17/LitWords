@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 import cookie from "js-cookie";
 import { api } from "~/utils/api";
+import type { GetServerSideProps } from "next";
+import { PrismaClient } from "@prisma/client";
 
 interface SignupFormData {
   username: string;
@@ -58,7 +60,7 @@ const SignupForm: React.FC = () => {
   const loginMutation = api.auth.loginMutation.useMutation({
     onSuccess: async (data) => {
       console.log(data);
-      cookie.set("litwordRemembers", data.token, { expires: 1});
+      cookie.set("litwordRemembers", data.token, { expires: 1 });
       await router.push("/admin/editor");
     },
   });
@@ -167,4 +169,29 @@ const SignupForm: React.FC = () => {
     </div>
   );
 };
+
+
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const token = context.req.cookies.litwordRemembers;
+  const prisma = new PrismaClient();
+  if (token) {
+    const userToken = await prisma.token.findFirst({
+      where: { value: token },
+      include: { user: true }
+    });
+    if (userToken) {
+      return {
+        redirect: {
+          destination: '/admin/editor',
+          permanent: false,
+        },
+      }
+    }
+  };
+  return {
+    props: {},
+  };
+};
+
 export default SignupForm;

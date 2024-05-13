@@ -8,10 +8,11 @@ generator client {
 }
 
 model user {
-    userID       String @id @default(cuid())
-    username     String @unique
+    id           String  @id @default(cuid())
+    username     String  @unique
     salt         String
     passwordHash String
+    Token        Token[]
 }
 
 model Article {
@@ -28,6 +29,7 @@ model Token {
     tokenId String @id @default(cuid())
     userId  String
     value   String
+    user    user   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Comment {
@@ -35,6 +37,6 @@ model Comment {
     name      String
     email     String
     comment   String
-    articleId String  @unique
-    article   Article @relation(fields: [articleId], references: [articleId])
+    articleId String
+    article   Article @relation(fields: [articleId], references: [articleId], onDelete: Cascade)
 }

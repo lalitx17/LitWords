@@ -35,10 +35,13 @@ export const authRouter = createTRPCRouter({
         if (username && password){
             const user = await ctx.db.user.findFirst({where: {username: username}})
             if (user){
-                const passwordHash = hash(password + user.salt)
-                if (passwordHash === user.passwordHash){
+                const newHash = hash(password + user.salt)
+                const token = hash(newHash + new Date().getTime().toString())
+                if (newHash === user.passwordHash){
+                    await ctx.db.token.create({ data: { value: token, userId: user.id}})
                     return {
-                        token: hash(username + new Date().getTime())
+                        token: token,
+                        success: true
                     }
                 }else{
                     throw new TRPCError({
@@ -59,6 +62,7 @@ export const authRouter = createTRPCRouter({
             })
         }
     }),
+
 });
 
 

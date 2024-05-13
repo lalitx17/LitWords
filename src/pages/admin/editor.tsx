@@ -1,12 +1,10 @@
 import type { ChangeEvent, FormEvent } from 'react';
-import cookie from 'js-cookie';
 import MarkdownEditor from '../../globalComponents/markdowneditor';
 import { useForm } from "~/context/useFrom";
 import { api } from '~/utils/api';
 
 
 export default function MyForm() {
-  console.log(cookie.get("lit"));
 
   const initialStateFormData = {
     title: '',
@@ -15,7 +13,6 @@ export default function MyForm() {
   };
 
   const { formData, setFormData } = useForm();
-
 
   const { mutate, isLoading: isPosting } = api.posts.create.useMutation({
     onSuccess: () => {
@@ -94,5 +91,7 @@ export default function MyForm() {
     </>
   );
 };
+
+
 
 //react-markdown

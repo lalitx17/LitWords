@@ -10,6 +10,7 @@ import ReactMarkdown from "react-markdown";
 import type { ReactMarkdownProps } from "react-markdown/lib/complex-types";
 import { PrismaClient} from "@prisma/client";
 import type { GetServerSideProps } from "next";
+import { useState } from "react";
 
 interface imageProps {
   src: string;
@@ -37,6 +38,7 @@ const renderImage = (props: ReactMarkdownProps) => {
 
 const ArticlePage: React.FC<ArticlePageProps> = ({article}) => {
   const router = useRouter();
+  const [comments, setComments] = useState(article?.comments);
 
   const slug = router.query.slug as string;
 
@@ -54,6 +56,7 @@ const ArticlePage: React.FC<ArticlePageProps> = ({article}) => {
   const handleComment = (name: string, email: string, comment: string): void => {
     if (!isPosting && name && email && comment) {
       mutate({name, email, comment, articleId: slug});
+      setComments((prev) => [...prev, {name, email, comment}]);
   };
 };
 
@@ -100,7 +103,7 @@ const ArticlePage: React.FC<ArticlePageProps> = ({article}) => {
           <div className="mt-4">
             <h2 className="mb-4 text-xl font-bold md:text-2xl">Comments</h2>
             <div className="space-y-4">
-              {article?.comments.map((comment, index) => (
+              {comments.map((comment, index) => (
                 <div key={index} className="bg-white shadow-md p-4 rounded-lg">
                   <div className="flex items-center mb-2">
                     <strong className="mr-2">{comment.name}</strong>
