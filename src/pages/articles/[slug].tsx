@@ -11,6 +11,7 @@ import type { ReactMarkdownProps } from "react-markdown/lib/complex-types";
 import { PrismaClient} from "@prisma/client";
 import type { GetServerSideProps } from "next";
 import { useState } from "react";
+import cookie from "js-cookie";
 
 interface imageProps {
   src: string;
@@ -37,10 +38,13 @@ const renderImage = (props: ReactMarkdownProps) => {
 
 
 const ArticlePage: React.FC<ArticlePageProps> = ({article}) => {
+  const [deletebutton, setDeleteButton] = useState(false);
   const router = useRouter();
   const [comments, setComments] = useState(article?.comments);
 
   const slug = router.query.slug as string;
+
+
 
 
   const {mutate, isLoading: isPosting} = api.posts.comment.useMutation({
@@ -51,6 +55,13 @@ const ArticlePage: React.FC<ArticlePageProps> = ({article}) => {
       console.error(err);
     }
   });
+
+  const tokenStatus = api.posts.tokenQuery.useQuery({token: cookie.get("litwordRemembers") ?? ""});
+
+  if (tokenStatus){
+    setDeleteButton(true);
+  }
+
 
 
   const handleComment = (name: string, email: string, comment: string): void => {
@@ -104,19 +115,27 @@ const ArticlePage: React.FC<ArticlePageProps> = ({article}) => {
             <h2 className="mb-4 text-xl font-bold md:text-2xl">Comments</h2>
             <div className="space-y-4">
               {comments.map((comment, index) => (
-                <div key={index} className="bg-white shadow-md p-4 rounded-lg">
+                <div key={index}>
+                <div className="bg-white shadow-md p-4 rounded-lg">
                   <div className="flex items-center mb-2">
                     <strong className="mr-2">{comment.name}</strong>
                     <span className="text-gray-500">({comment.email})</span>
                   </div>
                   <p className="text-gray-800">{comment.comment}</p>
                 </div>
+
+                <button
+                className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                onClick={() => setDeleteButton(!deletebutton)}
+              >
+                Delete
+              </button>
+              </div>
               ))}
+              
             </div>
           </div>
-
           <CommentForm onChange={(name, email, comment) => handleComment(name, email, comment)} />
-
         </div>
       </Layout>
     </>

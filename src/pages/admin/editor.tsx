@@ -2,6 +2,8 @@ import type { ChangeEvent, FormEvent } from 'react';
 import MarkdownEditor from '../../globalComponents/markdowneditor';
 import { useForm } from "~/context/useFrom";
 import { api } from '~/utils/api';
+import type { GetServerSideProps } from 'next';
+import { PrismaClient } from '@prisma/client';
 
 
 export default function MyForm() {
@@ -90,6 +92,38 @@ export default function MyForm() {
       </div>
     </>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const token = context.req.cookies.litwordRemembers;
+  const prisma = new PrismaClient();
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/admin',
+        permanent: false,
+      },
+    };
+  }
+
+  const userToken = await prisma.token.findFirst({
+    where: { value: token },
+    include: { user: true },
+  });
+
+  if (!userToken) {
+    return {
+      redirect: {
+        destination: '/admin',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
 };
 
 

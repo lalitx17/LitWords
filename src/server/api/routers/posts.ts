@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { TRPCError } from "@trpc/server";
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
@@ -61,6 +62,29 @@ comment:publicProcedure.input(z.object({
     },
 });
 return comment; 
+}),
+
+
+tokenQuery: publicProcedure.input(z.object({token: z.string()})).query(async ({ctx, input}) => {
+  const token = await ctx.db.token.findFirst({
+    where: {value: input.token},
+    include: {user: true}
+  });
+  if (token){
+    return true;
+  }else{
+     throw new TRPCError({
+      code: "BAD_REQUEST", 
+      message: "no such token"
+     })
+  }
+}),
+
+deleteComment: publicProcedure.input(z.object({commentId: z.string()})).mutation(async ({ctx, input}) => {
+  const comment = await ctx.db.comment.delete({
+    where: {commentId: input.commentId}
+  });
+  return comment;
 }),
 
 
