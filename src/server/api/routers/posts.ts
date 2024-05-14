@@ -71,7 +71,7 @@ tokenQuery: publicProcedure.input(z.object({token: z.string()})).query(async ({c
     include: {user: true}
   });
   if (token){
-    return true;
+    return token;
   }else{
      throw new TRPCError({
       code: "BAD_REQUEST", 

@@ -38,14 +38,11 @@ const renderImage = (props: ReactMarkdownProps) => {
 
 
 const ArticlePage: React.FC<ArticlePageProps> = ({article}) => {
-  const [deletebutton, setDeleteButton] = useState(false);
+  const [deletebutton, setDeleteButton] = useState(true);
   const router = useRouter();
   const [comments, setComments] = useState(article?.comments);
 
   const slug = router.query.slug as string;
-
-
-
 
   const {mutate, isLoading: isPosting} = api.posts.comment.useMutation({
     onSuccess: () => {
@@ -55,13 +52,6 @@ const ArticlePage: React.FC<ArticlePageProps> = ({article}) => {
       console.error(err);
     }
   });
-
-  const tokenStatus = api.posts.tokenQuery.useQuery({token: cookie.get("litwordRemembers") ?? ""});
-
-  if (tokenStatus){
-    setDeleteButton(true);
-  }
-
 
 
   const handleComment = (name: string, email: string, comment: string): void => {
@@ -116,20 +106,23 @@ const ArticlePage: React.FC<ArticlePageProps> = ({article}) => {
             <div className="space-y-4">
               {comments.map((comment, index) => (
                 <div key={index}>
-                <div className="bg-white shadow-md p-4 rounded-lg">
+                <div className="bg-white shadow-md p-4 rounded-lg flex flex-row justify-between items-center">
+                  <div>
                   <div className="flex items-center mb-2">
                     <strong className="mr-2">{comment.name}</strong>
                     <span className="text-gray-500">({comment.email})</span>
                   </div>
                   <p className="text-gray-800">{comment.comment}</p>
-                </div>
-
-                <button
-                className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                  </div>
+                  {deletebutton && <button
+                className="bg-blue-500 text-white px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 h-10" 
                 onClick={() => setDeleteButton(!deletebutton)}
               >
                 Delete
-              </button>
+              </button>}
+                </div>
+
+                
               </div>
               ))}
               
