@@ -12,6 +12,8 @@ import { PrismaClient} from "@prisma/client";
 import type { GetServerSideProps } from "next";
 import { useState } from "react";
 import cookie from "js-cookie";
+import { useEffect } from "react";
+
 
 interface imageProps {
   src: string;
@@ -20,13 +22,16 @@ interface imageProps {
 
 interface ArticlePageProps {
   article: {
+    articleId: string;
     title: string;
     content: string;
     createdAt: string;
     comments: {
+      commentId: string;
       name: string;
       email: string;
       comment: string;
+      articleId : string;
     }[];
   };
 }
@@ -38,28 +43,59 @@ const renderImage = (props: ReactMarkdownProps) => {
 
 
 const ArticlePage: React.FC<ArticlePageProps> = ({article}) => {
-  const [deletebutton, setDeleteButton] = useState(true);
+  const [deletebutton, setDeleteButton] = useState(false);
   const router = useRouter();
   const [comments, setComments] = useState(article?.comments);
 
   const slug = router.query.slug as string;
 
   const {mutate, isLoading: isPosting} = api.posts.comment.useMutation({
-    onSuccess: () => {
+    onSuccess: (data) => {
       console.log("Comment added");
+      setComments((prev) => [...prev, data]);
     },
     onError: (err) => {
       console.error(err);
     }
   });
 
+  const deleteMutation = api.posts.deleteComment.useMutation({
+    onSuccess: () => {
+      console.log("Comment deleted");
+    },
+    onError: (err) => {
+      console.error(err);
+    }
+  });
+
+  const handleDeleteComment = (commentId: string, index: number) => {
+    try{
+      deleteMutation.mutate({commentId});
+      setComments((prev) => prev.filter((_, i) => i !== index));
+    }catch(err){
+      console.error("Error deleting comment");
+    }
+  }
+
 
   const handleComment = (name: string, email: string, comment: string): void => {
     if (!isPosting && name && email && comment) {
       mutate({name, email, comment, articleId: slug});
-      setComments((prev) => [...prev, {name, email, comment}]);
   };
 };
+
+const {data} = api.posts.tokenQuery.useQuery({token: cookie.get("litwordRemembers") ?? ""});
+const user = data?.user ?? null;
+
+
+
+useEffect(() => {
+  if (user) {
+    setDeleteButton(true);
+  } else {
+    setDeleteButton(false);
+  }
+}, [user]);
 
   const markdown = article?.content ?? "";
 
@@ -116,7 +152,7 @@ const ArticlePage: React.FC<ArticlePageProps> = ({article}) => {
                   </div>
                   {deletebutton && <button
                 className="bg-blue-500 text-white px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 h-10" 
-                onClick={() => setDeleteButton(!deletebutton)}
+                onClick={() => handleDeleteComment(comment.commentId ?? "", index)}
               >
                 Delete
               </button>}
