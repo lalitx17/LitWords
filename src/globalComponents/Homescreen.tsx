@@ -1,7 +1,5 @@
 import Image from "next/image";
-
 import quirkyLalit from "../../public/image/QuirkyLality2.jpg";
-import lalitx from "../../public/image/lalitx.jpg";
 
 function HomeScreen() {
     return (

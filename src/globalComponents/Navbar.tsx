@@ -2,8 +2,6 @@ import { useState } from "react";
 
 import Image from "next/image";
 
-import logo from "../../public/image/litwords4.png";
-
 interface NavbarProps {
   imageSrc: string;
   className?: string;

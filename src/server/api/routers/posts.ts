@@ -87,24 +87,11 @@ deleteComment: publicProcedure.input(z.object({commentId: z.string()})).mutation
   return comment;
 }),
 
+deleteArticle: publicProcedure.input(z.object({articleId: z.string()})).mutation(async({ctx, input}) => {
+  const article = await ctx.db.article.delete({
+    where: {articleId: input.articleId}
+  });
+  return article;
+}),
 
-
-/*   create: publicProcedure
-    .input(z.object({ name: z.string().min(1) }))
-    .mutation(async ({ ctx, input }) => {
-      // simulate a slow db call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      return ctx.db.post.create({
-        data: {
-          name: input.name,
-        },
-      });
-    }),
-
-  getLatest: publicProcedure.query(({ ctx }) => {
-    return ctx.db.post.findFirst({
-      orderBy: { createdAt: "desc" },
-    });
-  }), */
 });
