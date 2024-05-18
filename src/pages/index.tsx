@@ -37,7 +37,7 @@ export default function Home() {
       <main>
         <div className="mx-auto my-12 w-[93%] rounded-lg bg-secondaryBackground ">
           <div className="h-10 rounded-t-lg bg-gradient-to-r from-purpleG to-blueG">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            
           </div>
           <div className="bg1 bg2">
             <div className="h-full backdrop-blur">
