@@ -5,6 +5,10 @@ import solitude from "../../public/image/solitude.jpg";
 import Footer from "~/globalComponents/Footer";
 import BlogHouse from "~/globalComponents/BlogHouse";
 import LitwordsWhite from "../../public/image/litwordsWhite.png";
+import Instagram from "../../public/image/instagram-logo.png";
+import Github from "../../public/image/github.png";
+import Twitter from "../../public/image/twitter.png";
+import Image from "next/image";
 
 export default function Home() {
   console.log("server side rendering");
@@ -37,7 +41,17 @@ export default function Home() {
       <main>
         <div className="mx-auto my-12 w-[93%] rounded-lg bg-secondaryBackground ">
           <div className="h-10 rounded-t-lg bg-gradient-to-r from-purpleG to-blueG">
-            
+            <div className="flex flex-row items-center justify-center gap-x-6 md:justify-end md:me-14">
+              <div className="mt-2">
+                <Image src={Instagram.src} alt="Litwords" width={26} height={50} />
+              </div>
+              <div className="mt-2">
+                <Image src={Github.src} alt="Litwords" width={25} height={50} />
+              </div>
+              <div className="mt-2">
+                <Image src={Twitter.src} alt="Litwords" width={22} height={50} />
+              </div>
+            </div>
           </div>
           <div className="bg1 bg2">
             <div className="h-full backdrop-blur">
