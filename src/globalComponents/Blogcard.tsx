@@ -1,4 +1,4 @@
-
+import { useState } from "react";
 import Image from "next/image";
 
 import solitude from "../../public/image/solitude.jpg";
@@ -8,12 +8,32 @@ import quirkyLalit from "../../public/image/QuirkyLality2.jpg";
 import type { RouterOutputs } from "~/utils/api";
 
 import Link from "next/link";
+import { api } from "~/utils/api";
 
 type ArticlesByMe = RouterOutputs["posts"]["getAll"][number];
 
 
-export default function Blogcard(props: ArticlesByMe) {
-   const {title, content, createdAt, articleId} = props;
+export default function Blogcard(props: ArticlesByMe & {authentication: boolean}) {
+   const {title, content, createdAt, articleId, authentication} = props;
+
+   const deleteArticleMutation = api.posts.deleteArticle.useMutation({
+     onSuccess: () => {
+       console.log("Article Deleted");
+     },
+     onError: (err) => {
+       console.error(err);
+     }
+   });
+
+    const handleArticleDeleter = (articleId: string) => { 
+      try {
+        deleteArticleMutation.mutate({articleId});
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+
     return (
       <div className="m-8 max-w-md rounded-lg border border-gray-200 bg-white shadow dark:border-gray-700 dark:bg-gray-800">
         <a href="#">
@@ -55,6 +75,7 @@ export default function Blogcard(props: ArticlesByMe) {
           <p className="my-4 font-normal text-gray-700 dark:text-gray-400">
             {content.slice(0, 97) + "..."}
           </p>
+          <div className="flex flex-row justify-between">
           <Link
             href={`/articles/${articleId}`}
             className="inline-flex items-center rounded-lg bg-blue-700 px-3 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -76,6 +97,14 @@ export default function Blogcard(props: ArticlesByMe) {
               />
             </svg>
           </Link>
+          {authentication && <button
+            className="inline-flex items-center rounded-lg bg-blue-700 px-3 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            onClick={() => handleArticleDeleter(articleId)}
+          >
+            Delete
+          </button>}
+
+          </div>
         </div>
       </div>
     );

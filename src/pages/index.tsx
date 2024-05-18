@@ -41,15 +41,15 @@ export default function Home() {
       <main>
         <div className="mx-auto my-12 w-[93%] rounded-lg bg-secondaryBackground ">
           <div className="h-10 rounded-t-lg bg-gradient-to-r from-purpleG to-blueG">
-            <div className="flex flex-row items-center justify-center gap-x-6 md:justify-end md:me-14">
+            <div className="flex flex-row items-center justify-center md:gap-x-10 gap-x-6 md:justify-end md:me-14">
               <div className="mt-2">
-                <Image src={Instagram.src} alt="Litwords" width={26} height={50} />
+                <Image src={Instagram.src} alt="Litwords" width={22} height={50} />
               </div>
               <div className="mt-2">
-                <Image src={Github.src} alt="Litwords" width={25} height={50} />
+                <Image src={Github.src} alt="Litwords" width={22} height={50} />
               </div>
               <div className="mt-2">
-                <Image src={Twitter.src} alt="Litwords" width={22} height={50} />
+                <Image src={Twitter.src} alt="Litwords" width={19} height={50} />
               </div>
             </div>
           </div>

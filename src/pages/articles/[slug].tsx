@@ -51,7 +51,6 @@ const ArticlePage: React.FC<ArticlePageProps> = ({article}) => {
 
   const {mutate, isLoading: isPosting} = api.posts.comment.useMutation({
     onSuccess: (data) => {
-      console.log("Comment added");
       setComments((prev) => [...prev, data]);
     },
     onError: (err) => {

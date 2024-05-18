@@ -1,16 +1,32 @@
+import React, {useEffect, useState } from "react";
 import Blogcard from "~/globalComponents/Blogcard";
 import { api } from "~/utils/api";
 import Banner from "~/globalComponents/Banner";
+import cookie from "js-cookie";
 
 export default function BlogHouse() {
     const { data } = api.posts.getAll.useQuery();
+    const [authed, setAuthed] = useState(false);
+
+    const {data:userData} = api.posts.tokenQuery.useQuery({token: cookie.get("litwordRemembers") ?? ""});
   
+    useEffect(() => {
+      if (userData?.user) {
+        console.log("Setting authed to true");
+        setAuthed(true);
+      } else {
+        console.log("Setting authed to false");
+        setAuthed(false);
+      }
+    }, [userData?.user]);
+
     let blogNumber = 0;
     const cards: JSX.Element[] = [];
   
+    
     if (data?.length) {
       for (const article of data) {
-        cards.push(<Blogcard {...article} key={article.articleId} />);
+        cards.push(<Blogcard {...article} authentication={authed} key={article.articleId} />);
       }
       blogNumber = data.length;
     }
