@@ -7,8 +7,6 @@ import { api } from "~/utils/api";
 type ArticlesByMe = RouterOutputs["posts"]["getAll"][number];
 import ConfirmationDialog from "./ConfirmationDialogBox";
 import React, { useState } from "react";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 
 
 export default function Blogcard(props: ArticlesByMe & { authentication: boolean }) {
@@ -40,6 +38,14 @@ export default function Blogcard(props: ArticlesByMe & { authentication: boolean
   };
 
   const firstImageSrc = extractFirstImage(content) ?? solitude.src;
+
+
+  const stripMarkdownImages = (markdown: string) => {
+    return markdown.replace(/!\[.*?\]\(.*?\)/g, '');
+  };
+
+  const strippedContent = stripMarkdownImages(content);
+  const slicedContent = strippedContent.length > 100 ? strippedContent.slice(0, 100) + "..." : strippedContent;
 
 
   return (
@@ -82,14 +88,7 @@ export default function Blogcard(props: ArticlesByMe & { authentication: boolean
           </div>
 
           <div className="my-4 font-normal text-gray-700 dark:text-gray-400">
-            <ReactMarkdown
-              remarkPlugins={[remarkGfm]}
-              components={{
-                img: ({...props}) => <span>{props.alt}</span>
-              }}
-            >
-              {content.slice(0, 97) + "..."}
-            </ReactMarkdown>
+            {slicedContent}
           </div>
           <div className="flex flex-row justify-between">
             <Link
