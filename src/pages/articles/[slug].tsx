@@ -38,7 +38,7 @@ interface ArticlePageProps {
 
 const renderImage = (props: ReactMarkdownProps) => {
   const ImageProps = props as unknown as imageProps;
-  return <Image src={ImageProps.src} alt={ImageProps.alt} width={500} height={5} className="rounded-[40px]" />;
+  return <Image src={ImageProps.src} alt={ImageProps.alt} width={500} height={5} className="rounded-[40px] my-8 mx-auto w-4/5" />;
 };
 
 
