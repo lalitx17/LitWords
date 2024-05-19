@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Montserrat:ital@1&family=Poppins:wght@200&family=Roboto:wght@300;400;500&display=swap');
 
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

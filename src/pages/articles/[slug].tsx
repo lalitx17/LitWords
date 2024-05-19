@@ -107,7 +107,6 @@ useEffect(() => {
       <Layout>
         <div className="p-4 md:p-8 md:mx-[20em]">
           <h1 className="mb-4 text-2xl font-bold md:text-4xl">{article?.title}</h1>
-          <p className="text-base">Continued strength is due in part to both U.S. and European commitments to climate-forward industrial policies</p>
           <div className="my-2 flex flex-row">
             <Image
               src={quirkyLalit.src}
@@ -121,12 +120,12 @@ useEffect(() => {
                 <i>Lalit Yadav</i>
               </span>
               <span className="ms-2">
-                Published on . {String(article?.createdAt).slice(0, 15)}
+                Published on . {String(article?.createdAt).slice(0, 10)}
               </span>
             </div>
           </div>
           <hr />
-          <div className="mb-4">
+          <div className="mb-4 font-complementary tracking-wider leading-8">
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               components={{
