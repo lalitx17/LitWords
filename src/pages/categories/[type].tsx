@@ -7,18 +7,12 @@ import { useEffect, useState } from 'react';
 const Categories: React.FC = () => {
     const router = useRouter();
 
-    const [slug, setSlug] = useState<string>("");
+    const type = router.query.type as string;
 
-    useEffect(() => {
-        if (router.isReady) {
-            setSlug(router.query.slug as string);
-        }
-    }, [router.isReady, router.query.slug]);
-    
 
-    if (!slug) return <div>Loading...</div>;
+    if (!type) return <div>Loading...</div>;
 
-    const { data } = api.posts.getbyTag.useQuery({ tag: slug });
+    const { data } = api.posts.getbyTag.useQuery({ tag: type });
 
     const cards: JSX.Element[] = [];
   
@@ -33,7 +27,7 @@ const Categories: React.FC = () => {
     return (
         <Layout>
             <div className='my-4 p-4 border border-grey-200 mx-4 rounded-md'>
-            <p className="text-4xl font-semibold text-center text-black">{slug}</p>
+            <p className="text-4xl font-semibold text-center text-black">{type}</p>
             </div>
             
             {Array.from({ length: rowCount }, (_, index) => (
