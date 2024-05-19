@@ -41,6 +41,10 @@ const renderImage = (props: ReactMarkdownProps) => {
   return <Image src={ImageProps.src} alt={ImageProps.alt} width={500} height={5} className="rounded-[40px] my-8 mx-auto w-4/5" />;
 };
 
+const MarkdownParagraph = (props: ReactMarkdownProps) => (
+  <p className="md:text-[18px]">{props.children}</p>
+);
+
 
 const ArticlePage: React.FC<ArticlePageProps> = ({article}) => {
   const [deletebutton, setDeleteButton] = useState(false);
@@ -125,11 +129,12 @@ useEffect(() => {
             </div>
           </div>
           <hr />
-          <div className="mb-4 font-complementary tracking-wider leading-8">
+          <div className="mb-4 font-complementary tracking-wider leading-8 font-[20px]">
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               components={{
-                img: renderImage
+                img: renderImage,
+                p: MarkdownParagraph,
               }}
             >
               {markdown}
