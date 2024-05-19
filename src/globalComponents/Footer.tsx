@@ -23,22 +23,22 @@ const Footer: React.FC<FooterProps> = ({ classNameColor }) => {
             <nav className="mt-4">
               <ul className="space-y-2 text-center md:text-left">
                 <li>
-                  <Link href="#" passHref>
+                  <Link href="https://lalityadav.com.np/" passHref>
                     <p className="hover:underline hover:translate-x-[-2px] transition-transform duration-300 ease-in-out">About Me</p>
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" passHref>
+                  <Link href="https://lalityadav.com.np/" passHref>
                     <p className="hover:underline hover:translate-x-[-2px] transition-transform duration-300 ease-in-out">Contact</p>
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" passHref>
+                  <Link href="/" passHref>
                     <p className="hover:underline hover:translate-x-[-2px] transition-transform duration-300 ease-in-out">Blog</p>
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" passHref>
+                  <Link href="https://lalityadav.com.np/" passHref>
                     <p className="hover:underline hover:translate-x-[-2px] transition-transform duration-300 ease-in-out">Services</p>
                   </Link>
                 </li>
@@ -51,28 +51,28 @@ const Footer: React.FC<FooterProps> = ({ classNameColor }) => {
             <nav className="mt-4">
               <ul className="space-y-2 text-center md:text-left">
                 <li>
-                  <Link href="#" passHref>
-                    <p className="hover:underline hover:translate-x-[-2px] transition-transform duration-300 ease-in-out">Health</p>
+                  <Link href="/categories/Tech" passHref>
+                    <p className="hover:underline hover:translate-x-[-2px] transition-transform duration-300 ease-in-out">Tech</p>
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" passHref>
-                    <p className="hover:underline hover:translate-x-[-2px] transition-transform duration-300 ease-in-out">Music</p>
+                  <Link href="/categories/Philosophy" passHref>
+                    <p className="hover:underline hover:translate-x-[-2px] transition-transform duration-300 ease-in-out">Philosophy</p>
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" passHref>
-                    <p className="hover:underline hover:translate-x-[-2px] transition-transform duration-300 ease-in-out">Travel</p>
+                  <Link href="/categories/Science" passHref>
+                    <p className="hover:underline hover:translate-x-[-2px] transition-transform duration-300 ease-in-out">Science</p>
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" passHref>
-                    <p className="hover:underline hover:translate-x-[-2px] transition-transform duration-300 ease-in-out">Lifestyle</p>
+                  <Link href="/categories/Society" passHref>
+                    <p className="hover:underline hover:translate-x-[-2px] transition-transform duration-300 ease-in-out">Society</p>
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" passHref>
-                    <p className="hover:underline hover:translate-x-[-2px] transition-transform duration-300 ease-in-out">Technology</p>
+                  <Link href="/categories/Future" passHref>
+                    <p className="hover:underline hover:translate-x-[-2px] transition-transform duration-300 ease-in-out">Future</p>
                   </Link>
                 </li>
               </ul>

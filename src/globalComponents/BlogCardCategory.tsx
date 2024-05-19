@@ -11,6 +11,23 @@ const BlogcardCategory: React.FC<ArticlesByMe> = (props) => {
   const { title, content, createdAt, articleId } = props;
   const [hovered, setHovered] = useState(false);
 
+  const extractFirstImage = (markdown: string): string | null => {
+    const imagePattern = /!\[.*?\]\((.*?)\)/;
+    const match = imagePattern.exec(markdown)?.[1] ?? null;
+    return match;
+  };
+
+  const firstImageSrc = extractFirstImage(content) ?? solitude.src;
+
+
+  const stripMarkdownImages = (markdown: string) => {
+    return markdown.replace(/!\[.*?\]\(.*?\)/g, '');
+  };
+
+  const strippedContent = stripMarkdownImages(content);
+  const slicedContent = strippedContent.length > 100 ? strippedContent.slice(0, 100) + "..." : strippedContent;
+
+
   return (
     <div
       className={`m-8 p-2 max-w-5xl rounded-lg border border-gray-200 flex flex-col md:flex-row relative overflow-hidden ${
@@ -20,21 +37,21 @@ const BlogcardCategory: React.FC<ArticlesByMe> = (props) => {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <a href="#">
+      <Link href={`/articles/${articleId}`}>
         <Image
-          src={solitude.src}
+          src={firstImageSrc}
           width={600}
           height={400}
           alt="solitude"
           className="rounded-t-lg p-4"
         />
-      </a>
+      </Link>
       <div className="p-5 md:w-3/5">
-        <a href="#">
+      <Link href={`/articles/${articleId}`}>
           <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 ">
             {title}
           </h5>
-        </a>
+        </Link>
         <div className="my-2 flex flex-row">
           <Image
             src={quirkyLalit.src}
@@ -57,7 +74,7 @@ const BlogcardCategory: React.FC<ArticlesByMe> = (props) => {
         </div>
 
         <p className="my-4 font-normal text-gray-700 dark:text-gray-400">
-          {content.slice(0, 97) + '...'}
+          {slicedContent}
         </p>
         <Link
           href={`/articles/${articleId}`}

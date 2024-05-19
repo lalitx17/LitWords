@@ -3,9 +3,6 @@ import quirkyLalit from "../../public/image/QuirkyLality2.jpg";
 import Link from "next/link";
 
 function HomeScreen() {
-  const handleButtonClick = () => {
-    window.open("https://lalityadav.com.np/", "_blank");
-  };
     return (
       <div className="my-10 flex flex-col items-center">
         <div className="font-complemetary font-[500] tracking-widest text-white">
