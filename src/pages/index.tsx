@@ -59,7 +59,7 @@ export default function Home() {
               <HomeScreen />
               <svg
                 viewBox="0 89.467 500 88.832"
-                className="absolute bottom-0 mb-[-5px]"
+                className="absolute bottom-0 md:mb-[-20px] mb-[-5px]"
               >
                 <path
                   style={{

@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import Image from "next/image";
+import Link from "next/link";
 
 interface NavbarProps {
   imageSrc: string;
@@ -20,7 +21,9 @@ const Navbar: React.FC<NavbarProps> = ({ imageSrc, className }) => {
         <div className="border-b-[1px] md:flex md:items-center md:justify-between">
           <div className="flex items-center justify-between ">
             <div className="text-xl font-bold text-white">
+              <Link href="/">
               <Image src={imageSrc} width={200} height={50} alt="Your Logo" />
+              </Link>
             </div>
             <div className="md:hidden">
               {/* Hamburger menu button */}
@@ -49,12 +52,12 @@ const Navbar: React.FC<NavbarProps> = ({ imageSrc, className }) => {
           >
             {" "}
             {/* display:hidden and display:flex makes the toggle possible */}
-            <a href="#" className={`${className}`}>
+            <Link href="/" className={`${className}`}>
               Blogs
-            </a>
-            <a href="#" className={`${className}`}>
+            </Link>
+            <Link href="/" className={`${className}`}>
               Reviews
-            </a>
+            </Link>
           </div>
         </div>
       </nav>

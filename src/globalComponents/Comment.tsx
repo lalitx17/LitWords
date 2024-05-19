@@ -19,7 +19,7 @@ const CommentForm:React.FC<CommentProps> = ({onChange}) => {
   };
 
   return (
-    <div className="w-3/5 mt-8">
+    <div className="w-full mt-8 mx-auto">
       <div className={showCommentDialog? "bg-white rounded-lg shadow-md p-6": ""}>
       {!showCommentDialog && <button
       onClick={handleToggleCommentDialog}
@@ -34,7 +34,7 @@ const CommentForm:React.FC<CommentProps> = ({onChange}) => {
       />
     </button>}
         {showCommentDialog && (
-          <>
+          <div className='w-full mx-auto'>
           <h2 className="text-xl font-bold mb-4">Leave a Thought.</h2>
           <form
             onSubmit={(e: FormEvent<HTMLFormElement>) => {
@@ -82,7 +82,7 @@ const CommentForm:React.FC<CommentProps> = ({onChange}) => {
               Submit
             </button>
           </form>
-          </>)}
+          </div>)}
       </div>
     </div>
   );

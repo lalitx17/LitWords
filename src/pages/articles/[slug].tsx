@@ -140,7 +140,7 @@ useEffect(() => {
               {markdown}
             </ReactMarkdown>
           </div>
-          <div className="mt-4">
+          <div className="mt-[100px]">
             <h2 className="mb-4 text-xl font-bold md:text-2xl">Comments</h2>
             <div className="space-y-4">
               {comments.map((comment, index) => (
