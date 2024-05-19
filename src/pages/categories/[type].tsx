@@ -2,13 +2,23 @@ import Layout from '../layout';
 import BlogcardCategory from '~/globalComponents/BlogCardCategory';
 import { api } from "~/utils/api";
 import {useRouter} from 'next/router';
+import { useEffect, useState } from 'react';
 
-const Category: React.FC = () => {
+const Categories: React.FC = () => {
     const router = useRouter();
 
-    const tagName = router.query.slug as string;
+    const [slug, setSlug] = useState<string>("");
 
-    const { data } = api.posts.getbyTag.useQuery({ tag: tagName });
+    useEffect(() => {
+        if (router.isReady) {
+            setSlug(router.query.slug as string);
+        }
+    }, [router.isReady, router.query.slug]);
+    
+
+    if (!slug) return <div>Loading...</div>;
+
+    const { data } = api.posts.getbyTag.useQuery({ tag: slug });
 
     const cards: JSX.Element[] = [];
   
@@ -23,7 +33,7 @@ const Category: React.FC = () => {
     return (
         <Layout>
             <div className='my-4 p-4 border border-grey-200 mx-4 rounded-md'>
-            <p className="text-4xl font-semibold text-center">{data?.[0]?.tags[0]}</p>
+            <p className="text-4xl font-semibold text-center text-black">{slug}</p>
             </div>
             
             {Array.from({ length: rowCount }, (_, index) => (
@@ -35,5 +45,5 @@ const Category: React.FC = () => {
     );
 }
 
-export default Category;
+export default Categories;
 

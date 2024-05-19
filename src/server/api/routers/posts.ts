@@ -29,10 +29,17 @@ export const postRouter = createTRPCRouter({
 
   getbyTag:publicProcedure.input(z.object({tag: z.string()})).query(async ({ctx, input}) => {
     const blogs = await ctx.db.article.findMany({
-      where: {tags: {hasSome: [input.tag]}},
+      where: {tags: {has: input.tag}},
       orderBy:[{createdAt: 'desc'}]
     });
-    return blogs;
+    if (blogs){
+      return blogs;
+    }else{
+      throw new TRPCError({
+        code: "BAD_REQUEST",
+        message: "no such tag"
+      })
+    }
   }),
 
   create:publicProcedure.input(z.object({

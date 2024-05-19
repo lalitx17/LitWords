@@ -51,7 +51,7 @@ export default function Blogcard(props: ArticlesByMe & { authentication: boolean
   return (
     <>
       <div className="m-8 max-w-md rounded-lg border border-gray-200 bg-white shadow dark:border-gray-700 dark:bg-gray-800">
-        <a href="#">
+      <Link href={`/articles/${articleId}`}>
           <Image
             src={firstImageSrc}
             width={600}
@@ -59,13 +59,13 @@ export default function Blogcard(props: ArticlesByMe & { authentication: boolean
             alt="solitude"
             className="rounded-t-lg p-4"
           />
-        </a>
+        </Link>
         <div className="p-5">
-          <a href="#">
+        <Link href={`/articles/${articleId}`}>
             <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
               {title}
             </h5>
-          </a>
+          </Link>
           <div className="my-2 flex flex-row">
             <Image
               src={quirkyLalit.src}
@@ -86,7 +86,6 @@ export default function Blogcard(props: ArticlesByMe & { authentication: boolean
               </span>
             </div>
           </div>
-
           <div className="my-4 font-normal text-gray-700 dark:text-gray-400">
             {slicedContent}
           </div>
