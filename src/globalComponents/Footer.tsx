@@ -6,7 +6,7 @@ interface FooterProps {
 
 const Footer: React.FC<FooterProps> = ({ classNameColor }) => {
   return (
-    <footer className={`py-10 rounded-b-lg mt-10 ${classNameColor}`}>
+    <footer className={`py-10 rounded-b-lg ${classNameColor}`}>
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 w-4/5 mx-auto">
           <div className="flex flex-col items-center md:items-start">

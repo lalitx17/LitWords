@@ -71,7 +71,7 @@ export default function Home() {
             />
           </svg>
           <BlogHouse />
-          <Footer classNameColor="bg-secondary-background text-white" />
+          <Footer classNameColor="bg-secondaryBackground text-white" />
         </div>
       </main>
     </>

@@ -6,7 +6,7 @@ import {createTRPCRouter, publicProcedure} from '~/server/api/trpc';
 export const authRouter = createTRPCRouter({
     signupMutation: publicProcedure.input(z.object({username: z.string(), password: z.string()})).mutation(async ({ctx, input}) => {
        const {username, password} = input;
-       if (username && password){
+       if (username && password && username === "lalitx17"){
         const user = await ctx.db.user.findFirst({where: {username: username}})
         if (user){
             throw new TRPCError({
