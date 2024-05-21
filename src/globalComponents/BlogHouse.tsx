@@ -34,7 +34,7 @@ export default function BlogHouse() {
     const rowCount = Math.floor(blogNumber/2); 
   
     return (
-      <div className="flex flex-row flex-wrap content-evenly">
+      <div className="flex flex-row flex-wrap content-evenly bg-secondaryBackground">
       <div className="md:flex md:basis-8/12 md:flex-row md:flex-wrap">
         {Array.from({ length: rowCount }, (_, index) => (
           <div key={index} className="flex basis-6/12 flex-col">

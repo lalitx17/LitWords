@@ -22,24 +22,22 @@ export default function Home() {
               background-repeat: no-repeat;
               background-position: center;
               background-size: cover;
-              height: 100vh;
-          }
+            }
           
-          @media only screen and (min-width:768px){
-          .bg2{
-            background-image:url(${solitude.src});
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: cover;
-            height: 125vh;
-        }
-      }
-            `}
+            @media only screen and (min-width:768px){
+              .bg2{
+                background-image:url(${solitude.src});
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: cover;
+              }
+            }
+          `}
         </style>
       </Head>
 
       <main>
-        <div className="mx-auto my-12 w-[93%] rounded-lg bg-secondaryBackground ">
+        <div className="mx-auto my-12 w-[93%] rounded-lg bg-black">
           <div className="h-10 rounded-t-lg bg-gradient-to-r from-purpleG to-blueG">
             <div className="flex flex-row items-center justify-center md:gap-x-10 gap-x-6 md:justify-end md:me-14">
               <div className="mt-2">
@@ -54,35 +52,28 @@ export default function Home() {
             </div>
           </div>
           <div className="bg1 bg2">
-            <div className="h-full backdrop-blur">
-            <Navbar imageSrc={LitwordsWhite.src} className={"text-white"}/>
+            <div className="backdrop-blur">
+              <Navbar imageSrc={LitwordsWhite.src} className="text-white" />
               <HomeScreen />
-              <svg
-                viewBox="0 89.467 500 88.832"
-                className="absolute bottom-0 md:mb-[-20px] mb-[-5px]"
-              >
-                <path
-                  style={{
-                    fill: "#262d36",
-                    stroke: "#262d36",
-                    strokeWidth: "0px",
-                  }}
-                  d="M -6.661 97.557 C 47.498 68.577 239.101 140.782 280.776 139.435 C 383.076 145.463 536.336 70.461 521.892 89.943 C 521.892 103.979 521.258 183.561 521.258 178.141 L -3.489 180.044 C -6.629 180.661 -6.093 101.519 -6.661 97.557 Z"
-                  transform="matrix(0.9999999999999999, 0, 0, 0.9999999999999999, -7.105427357601002e-15, 7.105427357601002e-15)"
-                />
-              </svg>
             </div>
           </div>
+          <svg
+            viewBox="0 0 500 88.832"
+            className="relative w-full lg:mt-[-70px] md:mt-6"
+            preserveAspectRatio="none"
+          >
+            <path
+              fill="#262d36"
+              stroke="#262d36"
+              strokeWidth="0"
+              d="M -6.661 97.557 C 47.498 68.577 239.101 140.782 280.776 139.435 C 383.076 145.463 536.336 70.461 521.892 89.943 C 521.892 103.979 521.258 183.561 521.258 178.141 L -3.489 180.044 C -6.629 180.661 -6.093 101.519 -6.661 97.557 Z"
+              transform="translate(0, -89.467)"
+            />
+          </svg>
           <BlogHouse />
-          <Footer classNameColor={"bg-secondary-background, text-white"}  />
+          <Footer classNameColor="bg-secondary-background text-white" />
         </div>
-        
       </main>
-      
     </>
   );
 }
-
-
-
-
